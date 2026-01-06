@@ -1,24 +1,24 @@
-// Copyright 2017-2025 @polkadot/extension authors & contributors
+// Copyright 2017-2025 @pezkuwi/extension authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import path from 'path';
 
-import { createBundle } from '@polkadot/dev/config/rollup';
+import { createBundle } from '@pezkuwi/dev/config/rollup';
 
 const pkgs = [
-  '@polkadot/extension-dapp'
+  '@pezkuwi/extension-dapp'
 ];
 
 const external = [
   ...pkgs,
-  '@polkadot/networks',
-  '@polkadot/util',
-  '@polkadot/util-crypto'
+  '@pezkuwi/networks',
+  '@pezkuwi/util',
+  '@pezkuwi/util-crypto'
 ];
 
 const entries = ['extension-base', 'extension-chains', 'extension-inject'].reduce((all, p) => ({
   ...all,
-  [`@polkadot/${p}`]: path.resolve(process.cwd(), `packages/${p}/build`)
+  [`@pezkuwi/${p}`]: path.resolve(process.cwd(), `packages/${p}/build`)
 }), {});
 
 const overrides = {};

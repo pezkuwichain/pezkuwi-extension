@@ -1,4 +1,4 @@
-// Copyright 2019-2025 @polkadot/extension authors & contributors
+// Copyright 2019-2025 @pezkuwi/extension authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 const path = require('path');
@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-extension-manifest-plugin');
 
-const { blake2AsHex } = require('@polkadot/util-crypto');
+const { blake2AsHex } = require('@pezkuwi/util-crypto');
 
 const pkgJson = require('./package.json');
 const manifest = require('./manifest.json');
@@ -94,7 +94,7 @@ module.exports = (entry, alias = {}) => ({
   resolve: {
     alias: packages.reduce((alias, p) => ({
       ...alias,
-      [`@polkadot/${p}`]: path.resolve(__dirname, `../${p}/src`)
+      [`@pezkuwi/${p}`]: path.resolve(__dirname, `../${p}/src`)
     }), alias),
     extensionAlias: {
       '.js': ['.ts', '.tsx', '.js']

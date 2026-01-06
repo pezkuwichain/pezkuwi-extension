@@ -15,12 +15,15 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.62.6",
+  "version": "0.62.8",
+  "scripts": {
+    "pezkuwi-exec-webpack": "pezkuwi-exec-webpack"
+  },
   "dependencies": {
     "@pezkuwi/api": "^16.5.3",
-    "@pezkuwi/extension-base": "0.62.6",
-    "@pezkuwi/extension-inject": "0.62.6",
-    "@pezkuwi/extension-ui": "0.62.6",
+    "@pezkuwi/extension-base": "workspace:*",
+    "@pezkuwi/extension-inject": "workspace:*",
+    "@pezkuwi/extension-ui": "workspace:*",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
