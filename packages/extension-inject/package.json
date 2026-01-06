@@ -1,0 +1,38 @@
+{
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "bugs": "https://github.com/pezkuwichain/pezkuwi-extension/issues",
+  "description": "A generic injector (usable to any extension), that populates the base exposed interfaces to be used by dapps.",
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://github.com/pezkuwichain/pezkuwi-extension/tree/master/packages/extension-inject#readme",
+  "license": "Apache-2.0",
+  "name": "@pezkuwi/extension-inject",
+  "repository": {
+    "directory": "packages/extension-inject",
+    "type": "git",
+    "url": "https://github.com/pezkuwichain/pezkuwi-extension.git"
+  },
+  "sideEffects": true,
+  "type": "module",
+  "version": "0.62.6",
+  "main": "index.js",
+  "dependencies": {
+    "@pezkuwi/api": "^16.5.5",
+    "@pezkuwi/rpc-provider": "^16.5.5",
+    "@pezkuwi/types": "^16.5.5",
+    "@pezkuwi/util": "^14.0.5",
+    "@pezkuwi/util-crypto": "^14.0.5",
+    "@pezkuwi/x-global": "^14.0.5",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@pezkuwi/dev-test": "^0.84.3",
+    "@types/chrome": "^0.0.254",
+    "@types/firefox-webext-browser": "^111.0.5"
+  },
+  "peerDependencies": {
+    "@pezkuwi/api": "*",
+    "@pezkuwi/util": "*"
+  }
+}

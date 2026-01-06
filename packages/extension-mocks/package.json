@@ -1,0 +1,24 @@
+{
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "bugs": "https://github.com/pezkuwichain/pezkuwi-extension/issues",
+  "description": "Definitions for all known chains as exposed by the extension.",
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://github.com/pezkuwichain/pezkuwi-extension/tree/master/packages/extension-mocks#readme",
+  "license": "Apache-2.0",
+  "name": "@pezkuwi/extension-mocks",
+  "repository": {
+    "directory": "packages/extension-mocks",
+    "type": "git",
+    "url": "https://github.com/pezkuwichain/pezkuwi-extension.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.62.6",
+  "main": "index.js",
+  "dependencies": {
+    "sinon-chrome": "^3.0.1",
+    "tslib": "^2.8.1"
+  }
+}

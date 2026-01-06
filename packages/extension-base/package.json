@@ -1,0 +1,45 @@
+{
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "bugs": "https://github.com/pezkuwichain/pezkuwi-extension/issues",
+  "description": "Functions, classes and other utilities used in @pezkuwi/extension",
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://github.com/pezkuwichain/pezkuwi-extension/tree/master/packages/extension-base#readme",
+  "license": "Apache-2.0",
+  "name": "@pezkuwi/extension-base",
+  "repository": {
+    "directory": "packages/extension-base",
+    "type": "git",
+    "url": "https://github.com/pezkuwichain/pezkuwi-extension.git"
+  },
+  "sideEffects": [
+    "./packageDetect.js",
+    "./packageDetect.cjs"
+  ],
+  "type": "module",
+  "version": "0.62.6",
+  "main": "index.js",
+  "dependencies": {
+    "@pezkuwi/api": "^16.5.3",
+    "@pezkuwi/extension-chains": "0.62.6",
+    "@pezkuwi/extension-dapp": "0.62.6",
+    "@pezkuwi/extension-inject": "0.62.6",
+    "@pezkuwi/keyring": "^14.0.5",
+    "@pezkuwi/networks": "^14.0.5",
+    "@pezkuwi/phishing": "^0.25.23",
+    "@pezkuwi/rpc-provider": "^16.5.3",
+    "@pezkuwi/types": "^16.5.3",
+    "@pezkuwi/ui-keyring": "^3.16.4",
+    "@pezkuwi/ui-settings": "^3.16.4",
+    "@pezkuwi/util": "^14.0.5",
+    "@pezkuwi/util-crypto": "^14.0.5",
+    "eventemitter3": "^5.0.1",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@pezkuwi/dev-test": "^0.84.3",
+    "@pezkuwi/extension-mocks": "0.62.6"
+  }
+}
