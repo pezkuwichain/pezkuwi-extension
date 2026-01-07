@@ -1,163 +1,80 @@
-# polkadot{.js} extension
+# Pezkuwi Extension
 
-A very simple scaffolding browser extension that injects a [@polkadot/api](https://github.com/pezkuwi/api) Signer into a page, along with any associated accounts, allowing for use by any dapp. This is an extensible POC implementation of a Pezkuwi/Substrate browser signer.
+A browser extension for PezkuwiChain that injects a [@pezkuwi/api](https://github.com/pezkuwichain/pezkuwi-api) Signer into a page, along with any associated accounts, allowing for use by any dapp. This is an implementation of a PezkuwiChain browser signer.
 
-As it stands, it does one thing: it _only_ manages accounts and allows the signing of transactions with those accounts. It does not inject providers for use by dapps at this early point, nor does it perform wallet functions where it constructs and submits txs to the network.
+**Developed by Dijital Kurdistan Tech Institute**
+
+## Overview
+
+This extension manages accounts and allows the signing of transactions with those accounts for the PezkuwiChain network.
 
 ## Installation
 
-- On Chrome, install via [Chrome web store](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd)
-- On Firefox, install via [Firefox add-ons](https://addons.mozilla.org/en-US/firefox/addon/pezkuwi-extension/)
+- Chrome: Coming soon to Chrome Web Store
+- Firefox: Coming soon to Firefox Add-ons
 
-![interface screenshots](docs/extension-overview.png)
+## Documentation
 
-## Documentation and examples
-Find out more about how to use the extension as a Dapp developper, cookbook, as well as answers to most frequent questions in the [Pezkuwi-js extension documentation](https://js.pezkuwichain.app/docs/extension/)
-
-## Firefox installation from source instructions.
-
-1. Uncompress `master-ff-src.zip`
-2. Run `corepack enable` [More information](https://github.com/nodejs/corepack?tab=readme-ov-file#corepack-enable--name)
-2. Install dependencies via `yarn install`
-3. Build all packages via `yarn build`
-  - The `/packages/extension/build` directory will contain the exact code used in the add-on, and should exactly match the uncompressed `master-ff-build`.
-  
-NOTE: If you would like to regenerate the compressed `master-ff-build.zip`, and `master-ff-src.zip` files run: `yarn build:zip:ff`
-
-## Development version
-
-Steps to build the extension and view your changes in a browser:
-
-1. Chrome:
-    1. Build via `yarn build:chrome`
-      - NOTE: You may need to enable corepack by running `corepack enable`
-    2. Install the extension
-      - go to `chrome://extensions/`
-      - ensure you have the Development flag set
-      - "Load unpacked" and point to `packages/extension/build`
-      - if developing, after making changes - refresh the extension
-2. Firefox
-    1. Build via `yarn build:ff`
-      - NOTE: You may need to enable corepack by running `corepack enable`
-    2. Install the extension
-      - go to `about:debugging#addons`
-      - check "Enable add-on debugging"
-      - click on "Load Temporary Add-on" and point to `packages/extension/build/manifest.json`
-      - if developing, after making changes - reload the extension
-3. When visiting `https://js.pezkuwichain.app/apps/` it will inject the extension
-
-Once added, you can create an account (via a generated seed) or import via an existing seed. The [apps UI](https://github.com/pezkuwi/apps/), when loaded, will show these accounts as `<account name> (extension)`
+Find out more about how to use the extension as a Dapp developer in the [Pezkuwi Extension Documentation](https://js.pezkuwichain.app/docs/extension/)
 
 ## Development
 
-The repo is split into a number of packages -
+### Prerequisites
 
-- [extension](packages/extension/) - All the injection and background processing logic (the main entry)
-- [extension-ui](packages/extension-ui/) - The UI components for the extension, to build up the popup
-- [extension-dapp](packages/extension-dapp/) - A convenience wrapper to work with the injected objects, simplifying data extraction for any dapp that wishes to integrate the extension (or any extension that supports the interface)
-- [extension-inject](packages/extension-inject/) - A convenience wrapper that allows extension developers to inject their extension for use by any dapp
+- Node.js >= 18.14
+- Yarn 4.x (via corepack)
 
-It also contains a [`manifest_chrome.json`](packages/extension/manifest_chrome.json) file which contains the manifest configuration for Chrome and another [`manifest_firefox.json`](packages/extension/manifest_firefox.json) with the configuration for Firefox, for compatibility reasons, and a dummy `manifest.json` file that's only used by the build.
+### Building from Source
 
-## Dapp developers
+1. Enable corepack: `corepack enable`
+2. Install dependencies: `yarn install`
+3. Build for Chrome: `yarn build:chrome`
+4. Build for Firefox: `yarn build:ff`
 
-The actual in-depth technical breakdown is given in the next section for any dapp developer wishing to work with the raw objects injected into the window. However, convenience wrappers are provided that allows for any dapp to use this extension (or any other extension that conforms to the interface) without having to manage any additional info.
+### Loading the Extension
 
-The documentation for Dapp development is available [in the pezkuwi doc](https://js.pezkuwichain.app/docs/extension).
+**Chrome:**
+1. Go to `chrome://extensions/`
+2. Enable "Developer mode"
+3. Click "Load unpacked" and select `packages/extension/build`
 
-This approach is used to support multiple external signers in for instance [apps](https://github.com/pezkuwi/apps/). You can read more about the convenience wrapper [@polkadot/extension-dapp](packages/extension-dapp/) along with usage samples.
+**Firefox:**
+1. Go to `about:debugging#addons`
+2. Check "Enable add-on debugging"
+3. Click "Load Temporary Add-on" and select `packages/extension/build/manifest.json`
 
-## API interface
+## Packages
 
-The extension injection interfaces are generic, i.e. it is designed to allow any extension developer to easily inject extensions (that conforms to a specific interface) and at the same time, it allows for any dapp developer to easily enable the interfaces from multiple extensions at the same time. It is not an all-or-nothing approach, but rather it is an ecosystem where the user can choose which extensions fit their style best.
+- [extension](packages/extension/) - Main entry point with injection and background logic
+- [extension-ui](packages/extension-ui/) - UI components for the popup
+- [extension-dapp](packages/extension-dapp/) - Wrapper for dapps to work with injected objects
+- [extension-inject](packages/extension-inject/) - Wrapper for extension developers to inject their extension
 
-From a dapp developer perspective, the only work needed is to include the [@polkadot/extension-dapp](packages/extension-dapp/) package and call the appropriate enabling function to retrieve all the extensions and their associated interfaces.
+## For Dapp Developers
 
-From an extension developer perspective, the only work required is to enable the extension via the razor-thin [@polkadot/extension-inject](packages/extension-inject/) wrapper. Any dapp using the above interfaces will have access to the extension via this interface.
+Use the [@pezkuwi/extension-dapp](packages/extension-dapp/) package to integrate with this extension or any compatible extension.
 
-When there is more than one extension, each will populate an entry via the injection interface and each will be made available to the dapp. The `Injected` interface, as returned via `enable`, contains the following information for any compliant extension -
+```javascript
+import { web3Enable, web3Accounts } from '@pezkuwi/extension-dapp';
 
-```js
-interface Injected {
-  // the interface for Accounts, as detailed below
-  readonly accounts: Accounts;
-  // the standard Signer interface for the API, as detailed below
-  readonly signer: Signer;
-  // not injected as of yet, subscribable provider for pezkuwi API injection,
-  // this can be passed to the API itself upon construction in the dapp
-  // readonly provider?: Provider
-}
+// Enable the extension
+const extensions = await web3Enable('My Dapp');
 
-interface Account = {
-  // ss-58 encoded address
-  readonly address: string;
-  // the genesisHash for this account (empty if applicable to all)
-  readonly genesisHash?: string;
-  // (optional) name for display
-  readonly name?: string;
-};
-
-// exposes accounts
-interface Accounts {
-  // retrieves the list of accounts for right now
-  get: () => Promise<Account[]>;
-  // (optional) subscribe to all accounts, updating as they change
-  subscribe?: (cb: (accounts: Account[]) => any) => () => void
-}
-
-// a signer that communicates with the extension via sendMessage
-interface Signer extends SignerInterface {
-  // no specific signer extensions, exposes the `sign` interface for use by
-  // the pezkuwi API, confirming the Signer interface for this API
-}
+// Get all accounts
+const accounts = await web3Accounts();
 ```
 
-## Injection information
+## Links
 
-The information contained in this section may change and evolve. It is therefore recommended that all access is done via the [@polkadot/extension-dapp](packages/extension-dapp/) (for dapps) and [extension-inject](packages/extension-inject/) (for extensions) packages, which removes the need to work with the lower-level targets.
+- Website: https://pezkuwichain.io
+- Documentation: https://docs.pezkuwichain.io
+- GitHub: https://github.com/pezkuwichain
+- API Docs: https://js.pezkuwichain.app
 
-The extension injects `injectedWeb3` into the global `window` object, exposing the following: (This is meant to be generic across extensions, allowing any dapp to utilize multiple signers, and pull accounts from multiples, as they are available.)
+## License
 
-```js
-window.injectedWeb3 = {
-  // this is the name for this extension, there could be multiples injected,
-  // each with their own keys, here `pezkuwi` is for this extension
-  'pezkuwi': {
-    // semver for the package
-    version: '0.1.0',
+Apache-2.0
 
-    // this is called to enable the injection, and returns an injected
-    // object containing the accounts, signer and provider interfaces
-    // (or it will reject if not authorized)
-    enable (originName: string): Promise<Injected>
-  }
-}
-```
+## Author
 
-## Mnemonics, Passwords, and Imports/Exports
-
-### Using the mnemonic and password from the extension
-
-When you create a keypair via the extension, it supplies a 12-word mnemonic seed and asks you to create a password. This password only encrypts the private key on disk so that the password is required to spend funds in `pezkuwi/apps` or to import the account from backup. The password does not protect the mnemonic phrase. That is, if an attacker were to acquire the mnemonic phrase, they would be able to use it to spend funds without the password.
-
-### Importing mnemonics from other key generation utilities
-
-Some key-generation tools, e.g. [Subkey](https://www.substrate.io/kb/integrate/subkey), support hard and soft key derivation as well as passwords that encrypt the mnemonic phrase such that the mnemonic phrase itself is insufficient to spend funds.
-
-The extension supports these advanced features. When you import an account from a seed, you can add these derivation paths or password to the end of the mnemonic in the following format:
-
-```
-<mnemonic phrase>//<hard>/<soft>///<password>
-```
-
-That is, hard-derivation paths are prefixed with `//`, soft paths with `/`, and the password with `///`.
-
-The extension will still ask you to enter a password for this account. As before, this password only encrypts the private key on disk. It is not required to be the same password as the one that encrypts the mnemonic phrase.
-
-Accounts can also be derived from existing accounts – `Derive New Account` option in account's dropdown menu should be selected. After providing the password of the parent account, along with name and password of the derived account, enter derivation path in the following format:
-
-```
-//<hard>/<soft>
-```
-
-The path will be added to the mnemonic phrase of the parent account.
+Dijital Kurdistan Tech Institute

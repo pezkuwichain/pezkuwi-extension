@@ -1,0 +1,35 @@
+name: Main
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    if: "! startsWith(github.event.head_commit.message, '[CI Skip]')"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
+    - name: Build
+      run: |
+        corepack enable
+        yarn install --immutable
+        yarn build
+    - name: Upload Chrome Build
+      uses: actions/upload-artifact@v4
+      with:
+        name: chrome-build
+        path: master-chrome-build.zip
+        if-no-files-found: ignore
+    - name: Upload Firefox Build
+      uses: actions/upload-artifact@v4
+      with:
+        name: firefox-build
+        path: master-ff-build.zip
+        if-no-files-found: ignore

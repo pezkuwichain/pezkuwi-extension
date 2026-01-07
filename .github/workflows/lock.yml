@@ -1,6 +1,7 @@
 name: 'Lock Threads'
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '20 2/3 * * *'
 
@@ -8,9 +9,9 @@ jobs:
   lock:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
+      - uses: dessant/lock-threads@v5
         with:
-          github-token: ${{ secrets.GH_PAT_BOT }}
+          github-token: ${{ github.token }}
           issue-inactive-days: '7'
           issue-comment: >
             This thread has been automatically locked since there has not been
