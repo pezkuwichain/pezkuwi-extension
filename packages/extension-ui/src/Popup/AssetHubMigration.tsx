@@ -26,24 +26,24 @@ function AssetHubMigration ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <>
-      <Header text={t('Asset Hub Migration Notice')} />
+      <Header text={t('Pezkuwi Asset Hub Migration Notice')} />
       <div className={className}>
-        <p>{t('The Asset Hub migration has been completed. Please note the following important changes:')}</p>
+        <p>{t('The Pezkuwi Asset Hub migration has been completed. Please note the following important changes:')}</p>
         <Box>
           <List>
-            <li>{t('All balances have been migrated from the Relay Chain to Asset Hub')}</li>
-            <li>{t('All on-chain functionality has been moved to Asset Hub')}</li>
-            <li>{t('Asset Hub now holds user balances and provides general functionality')}</li>
+            <li>{t('All balances have been migrated from the Pezkuwi Relay Chain to Asset Hub')}</li>
+            <li>{t('All on-chain functionality has been moved to Pezkuwi Asset Hub')}</li>
+            <li>{t('Pezkuwi Asset Hub now holds user balances and provides general functionality')}</li>
           </List>
         </Box>
-        <p className='warning'>{t('Do not teleport balances to the Relay Chain unless:')}</p>
+        <p className='warning'>{t('Do not teleport balances to the Pezkuwi Relay Chain unless:')}</p>
         <Box>
           <List>
             <li>{t('You are opening HRMP channels, or')}</li>
-            <li>{t('You are starting a Parachain')}</li>
+            <li>{t('You are starting a TeyrChain')}</li>
           </List>
         </Box>
-        <p>{t('For all other operations, your balances are already on Asset Hub.')}</p>
+        <p>{t('For all other operations, your balances are already on Pezkuwi Asset Hub.')}</p>
       </div>
       <ButtonArea>
         <Button onClick={_onClick}>{t('I Understand')}</Button>
