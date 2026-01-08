@@ -19,10 +19,12 @@ interface Props {
 }
 
 function Identicon ({ className, iconTheme, onCopy, prefix, value }: Props): React.ReactElement<Props> {
-  // Use jdenticon as default for Pezkuwi
-  const theme = iconTheme === 'polkadot' || iconTheme === 'substrate' || iconTheme === 'pezkuwi' || !iconTheme
+  // Map themes: pezkuwi circle identicon, bizinikiwi uses jdenticon
+  const theme = iconTheme === 'bizinikiwi' || !iconTheme
     ? 'jdenticon'
-    : iconTheme;
+    : iconTheme === 'pezkuwi' || iconTheme === 'polkadot' || iconTheme === 'substrate'
+      ? 'pezkuwi'
+      : iconTheme;
 
   return (
     <div className={className}>

@@ -37,7 +37,7 @@ interface Props {
 function getMetadataProof (chain: Chain, payload: SignerPayloadJSON) {
   const m = chain.definition.rawMetadata;
 
-  assert(m, 'To sign with Ledger\'s Polkadot Generic App, the metadata must be present in the extension.');
+  assert(m, 'To sign with Ledger\'s Pezkuwi Generic App, the metadata must be present in the extension.');
 
   const merkleizedMetadata = merkleizeMetadata(m, {
     base58Prefix: chain.ss58Format,
