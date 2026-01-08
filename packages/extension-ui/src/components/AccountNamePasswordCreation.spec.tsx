@@ -24,7 +24,7 @@ const { configure, mount } = enzyme;
 configure({ adapter: new Adapter() });
 
 const account = {
-  name: 'My Polkadot Account',
+  name: 'My Pezkuwi Account',
   password: 'somepassword'
 };
 

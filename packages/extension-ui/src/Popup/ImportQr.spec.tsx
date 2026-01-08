@@ -21,10 +21,10 @@ const { configure, mount } = enzyme;
 
 const mockedAccount = {
   content: '12bxf6QJS5hMJgwbJMDjFot1sq93EvgQwyuPWENr9SzJfxtN',
-  expectedBannerChain: 'Polkadot',
-  genesisHash: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3',
+  expectedBannerChain: 'Pezkuwi',
+  genesisHash: '0x0000000000000000000000000000000000000000000000000000000000000001',
   isAddress: true,
-  name: 'My Polkadot Account'
+  name: 'My Pezkuwi Account'
 };
 
 interface ScanType {

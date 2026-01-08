@@ -51,10 +51,10 @@ interface AccountTestGenesisJson extends AccountTestJson {
   genesisHash: HexString;
 }
 
-const externalAccount = { address: '5EeaoDj4VDk8V6yQngKBaCD5MpJUCHrhYjVhBjgMHXoYon1s', expectedIconTheme: 'polkadot', isExternal: true, name: 'External Account', type: 'sr25519' } as AccountJson;
+const externalAccount = { address: '5EeaoDj4VDk8V6yQngKBaCD5MpJUCHrhYjVhBjgMHXoYon1s', expectedIconTheme: 'pezkuwi', isExternal: true, name: 'External Account', type: 'sr25519' } as AccountJson;
 const hardwareAccount = {
   address: 'HDE6uFdw53SwUyfKSsjwZNmS2sziWMPuY6uJhGHcFzLYRaJ',
-  expectedIconTheme: 'polkadot',
+  expectedIconTheme: 'pezkuwi',
   // Kusama genesis hash
   genesisHash: '0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe',
   isExternal: true,
@@ -64,51 +64,51 @@ const hardwareAccount = {
 } as AccountJson;
 
 const accounts = [
-  { address: '5HSDXAC3qEMkSzZK377sTD1zJhjaPiX5tNWppHx2RQMYkjaJ', expectedIconTheme: 'polkadot', name: 'ECDSA Account', type: 'ecdsa' },
-  { address: '5FjgD3Ns2UpnHJPVeRViMhCttuemaRXEqaD8V5z4vxcsUByA', expectedIconTheme: 'polkadot', name: 'Ed Account', type: 'ed25519' },
-  { address: '5Ggap6soAPaP5UeNaiJsgqQwdVhhNnm6ez7Ba1w9jJ62LM2Q', expectedIconTheme: 'polkadot', name: 'Parent Sr Account', type: 'sr25519' },
+  { address: '5HSDXAC3qEMkSzZK377sTD1zJhjaPiX5tNWppHx2RQMYkjaJ', expectedIconTheme: 'pezkuwi', name: 'ECDSA Account', type: 'ecdsa' },
+  { address: '5FjgD3Ns2UpnHJPVeRViMhCttuemaRXEqaD8V5z4vxcsUByA', expectedIconTheme: 'pezkuwi', name: 'Ed Account', type: 'ed25519' },
+  { address: '5Ggap6soAPaP5UeNaiJsgqQwdVhhNnm6ez7Ba1w9jJ62LM2Q', expectedIconTheme: 'pezkuwi', name: 'Parent Sr Account', type: 'sr25519' },
   { address: '0xd5D81CD4236a43F48A983fc5B895975c511f634D', expectedIconTheme: 'ethereum', name: 'Ethereum', type: 'ethereum' },
   { ...externalAccount },
   { ...hardwareAccount }
 ] as AccountTestJson[];
 
-// With Westend genesis Hash
-// This account isn't part of the generic test because Westend isn't a built in network
+// With Zagros genesis Hash
+// This account isn't part of the generic test because Zagros isn't a built in network
 // The network would only be displayed if the corresponding metadata are known
-const westEndAccount = {
+const zagrosAccount = {
   address: 'Cs2LLqQ6DSRx8UPdVp6jny4DvwNqziBSowSu5Nb1u3R6Z7X',
   expectedEncodedAddress: '5CMQg2VXTrRWCUewro13qqc45Lf93KtzzS6hWR6dY6pvMZNF',
-  expectedIconTheme: 'polkadot',
-  expectedNetworkLabel: 'Westend',
-  genesisHash: '0xe143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e',
+  expectedIconTheme: 'pezkuwi',
+  expectedNetworkLabel: 'Zagros',
+  genesisHash: '0x0000000000000000000000000000000000000000000000000000000000000003',
   name: 'acc',
   type: 'ed25519'
 } as AccountTestGenesisJson;
 
 const accountsWithGenesisHash = [
-  // with Polkadot genesis Hash
+  // with Pezkuwi genesis Hash
   {
     address: '5Ggap6soAPaP5UeNaiJsgqQwdVhhNnm6ez7Ba1w9jJ62LM2Q',
     expectedEncodedAddress: '15csxS8s2AqrX1etYMMspzF6V7hM56KEjUqfjJvWHP7YWkoF',
-    expectedIconTheme: 'polkadot',
-    expectedNetworkLabel: 'Polkadot',
-    genesisHash: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3',
+    expectedIconTheme: 'pezkuwi',
+    expectedNetworkLabel: 'Pezkuwi',
+    genesisHash: '0x0000000000000000000000000000000000000000000000000000000000000001',
     type: 'sr25519'
   },
-  // with Kusama genesis Hash
+  // with Dicle genesis Hash
   {
     address: '5DoYawpxt6aBy1pKAt1beLMrakqtbWMtG3NF6jwRR8uKJGqD',
     expectedEncodedAddress: 'EKAFGAqWTb7ifdkwapeYHirjM88QBB4iRCzVQDNtw7p3bgF',
-    expectedIconTheme: 'polkadot',
-    expectedNetworkLabel: 'Kusama',
-    genesisHash: '0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe',
+    expectedIconTheme: 'pezkuwi',
+    expectedNetworkLabel: 'Dicle',
+    genesisHash: '0x0000000000000000000000000000000000000000000000000000000000000004',
     type: 'sr25519'
   },
   // with Edgeware genesis Hash
   {
     address: '5GYQRJj3NUznYDzCduENRcocMsyxmb6tjb5xW87ZMErBe9R7',
     expectedEncodedAddress: 'mzKNamvvJPM5ApxwGSYD5VjjtyfrB4g8fhMyCc29K37nuop',
-    expectedIconTheme: 'substrate',
+    expectedIconTheme: 'bizinikiwi',
     expectedNetworkLabel: 'Edgeware',
     genesisHash: '0x742a2ca70c2fda6cee4f8df98d64c4c670a052d9568058982dad9d5a7a135c5b',
     type: 'sr25519'
@@ -308,7 +308,7 @@ describe('Address', () => {
     beforeAll(async () => {
       jest.spyOn(MetadataCache, 'getSavedMeta').mockImplementation(() => Promise.resolve(westendMetadata));
 
-      wrapper = await getWrapper(westEndAccount, [], false);
+      wrapper = await getWrapper(zagrosAccount, [], false);
     });
 
     it('shows westend label with the correct color', () => {
@@ -319,7 +319,7 @@ describe('Address', () => {
     });
 
     it('shows the account correctly reencoded', () => {
-      expect(wrapper.find('[data-field="address"]').text()).toEqual(westEndAccount.expectedEncodedAddress);
+      expect(wrapper.find('[data-field="address"]').text()).toEqual(zagrosAccount.expectedEncodedAddress);
     });
   });
 

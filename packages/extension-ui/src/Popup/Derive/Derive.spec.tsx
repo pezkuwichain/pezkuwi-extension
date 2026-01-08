@@ -36,13 +36,13 @@ const { configure, mount } = enzyme;
 configure({ adapter: new Adapter() });
 
 const parentPassword = 'pass';
-const westendGenesis = '0xe143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e';
+const zagrosGenesis = '0x0000000000000000000000000000000000000000000000000000000000000003';
 const defaultDerivation = '//0';
 const derivedAddress = '5GYQRJj3NUznYDzCduENRcocMsyxmb6tjb5xW87ZMErBe9R7';
 
 const accounts = [
   { address: '5FjgD3Ns2UpnHJPVeRViMhCttuemaRXEqaD8V5z4vxcsUByA', name: 'A', type: 'sr25519' },
-  { address: '5GYmFzQCuC5u3tQNiMZNbFGakrz3Jq31NmMg4D2QAkSoQ2g5', genesisHash: westendGenesis, name: 'B', type: 'sr25519' },
+  { address: '5GYmFzQCuC5u3tQNiMZNbFGakrz3Jq31NmMg4D2QAkSoQ2g5', genesisHash: zagrosGenesis, name: 'B', type: 'sr25519' },
   { address: '5D2TPhGEy2FhznvzaNYW9AkuMBbg3cyRemnPsBvBY4ZhkZXA', name: 'BB', parentAddress: '5GYmFzQCuC5u3tQNiMZNbFGakrz3Jq31NmMg4D2QAkSoQ2g5', type: 'sr25519' },
   { address: '5GhGENSJBWQZ8d8mARKgqEkiAxiW3hHeznQDW2iG4XzNieb6', isExternal: true, name: 'C', type: 'sr25519' },
   { address: '0xd5D81CD4236a43F48A983fc5B895975c511f634D', name: 'Ethereum', type: 'ethereum' },
@@ -294,7 +294,7 @@ describe('Derive', () => {
         await act(flushAllPromises);
         wrapper.update();
 
-        expect(deriveMock).toHaveBeenCalledWith(accounts[1].address, defaultDerivation, parentPassword, newAccount.name, newAccount.password, westendGenesis);
+        expect(deriveMock).toHaveBeenCalledWith(accounts[1].address, defaultDerivation, parentPassword, newAccount.name, newAccount.password, zagrosGenesis);
         expect(onActionStub).toHaveBeenCalledWith('/');
       });
     });

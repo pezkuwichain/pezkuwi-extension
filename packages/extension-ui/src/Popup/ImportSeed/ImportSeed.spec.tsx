@@ -23,7 +23,7 @@ const account = {
   derivation: '/1',
   expectedAddress: '5GNg7RWeAAJuya4wTxb8aZf19bCWJroKuJNrhk4N3iYHNqTm',
   expectedAddressWithDerivation: '5DV3x9zgaXREUMTX7GgkP3ETeW4DQAznWTxg4kx2WivGuQLQ',
-  name: 'My Polkadot Account',
+  name: 'My Pezkuwi Account',
   password: 'somePassword',
   seed: 'upgrade multiply predict hip multiply march leg devote social outer oppose debris'
 };

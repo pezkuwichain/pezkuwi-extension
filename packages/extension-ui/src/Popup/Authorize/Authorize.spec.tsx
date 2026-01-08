@@ -23,11 +23,11 @@ const { configure, mount } = enzyme;
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
 configure({ adapter: new Adapter() });
 
-const oneRequest = [{ id: '1', request: { origin: '???' }, url: 'http://polkadot.org' }];
+const oneRequest = [{ id: '1', request: { origin: '???' }, url: 'http://pezkuwichain.io' }];
 
 const twoRequests = [
   ...oneRequest,
-  { id: '2', request: { origin: 'abc' }, url: 'http://polkadot.pl' }
+  { id: '2', request: { origin: 'abc' }, url: 'http://pezkuwichain.app' }
 ];
 
 const oneAccount = [
@@ -69,7 +69,7 @@ describe('Authorize', () => {
     const wrapper = mountAuthorize(oneRequest);
 
     expect(wrapper.find(Request).length).toBe(1);
-    expect(wrapper.find(Request).find('.warning-message').text()).toBe('An application, self-identifying as ??? is requesting access from http://polkadot.org');
+    expect(wrapper.find(Request).find('.warning-message').text()).toBe('An application, self-identifying as ??? is requesting access from http://pezkuwichain.io');
   });
 
   it('render more request but just one accept button', () => {
@@ -77,7 +77,7 @@ describe('Authorize', () => {
 
     expect(wrapper.find(Request).length).toBe(2);
     expect(wrapper.find(Warning).length).toBe(2);
-    expect(wrapper.find(Request).at(1).find('.warning-message').text()).toBe('An application, self-identifying as abc is requesting access from http://polkadot.pl');
+    expect(wrapper.find(Request).at(1).find('.warning-message').text()).toBe('An application, self-identifying as abc is requesting access from http://pezkuwichain.app');
     expect(wrapper.find('button.acceptButton').length).toBe(1);
   });
 
