@@ -17,7 +17,7 @@ import { act } from 'react-dom/test-utils';
 
 import * as messaging from '../messaging.js';
 import * as MetadataCache from '../MetadataCache.js';
-import { westendMetadata } from '../Popup/Signing/metadataMock.js';
+import { zagrosMetadata } from '../Popup/Signing/metadataMock.js';
 import { flushAllPromises } from '../testHelpers.js';
 import { buildHierarchy } from '../util/buildHierarchy.js';
 import { DEFAULT_TYPE } from '../util/defaultType.js';
@@ -306,7 +306,7 @@ describe('Address', () => {
     let wrapper: ReactWrapper;
 
     beforeAll(async () => {
-      jest.spyOn(MetadataCache, 'getSavedMeta').mockImplementation(() => Promise.resolve(westendMetadata));
+      jest.spyOn(MetadataCache, 'getSavedMeta').mockImplementation(() => Promise.resolve(zagrosMetadata));
 
       wrapper = await getWrapper(zagrosAccount, [], false);
     });
@@ -314,8 +314,8 @@ describe('Address', () => {
     it('shows westend label with the correct color', () => {
       const bannerChain = wrapper.find('[data-field="chain"]');
 
-      expect(bannerChain.text()).toEqual(westendMetadata.chain);
-      expect(bannerChain.prop('style')?.backgroundColor).toEqual(westendMetadata.color);
+      expect(bannerChain.text()).toEqual(zagrosMetadata.chain);
+      expect(bannerChain.prop('style')?.backgroundColor).toEqual(zagrosMetadata.color);
     });
 
     it('shows the account correctly reencoded', () => {

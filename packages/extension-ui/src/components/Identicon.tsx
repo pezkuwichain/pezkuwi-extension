@@ -22,7 +22,7 @@ function Identicon ({ className, iconTheme, onCopy, prefix, value }: Props): Rea
   // Map themes: pezkuwi circle identicon, bizinikiwi uses jdenticon
   const theme = iconTheme === 'bizinikiwi' || !iconTheme
     ? 'jdenticon'
-    : iconTheme === 'pezkuwi' || iconTheme === 'polkadot' || iconTheme === 'substrate'
+    : iconTheme === 'pezkuwi'
       ? 'pezkuwi'
       : iconTheme;
 

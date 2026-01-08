@@ -20,7 +20,7 @@ import { flushAllPromises } from '../../testHelpers.js';
 import Request from './Request/index.js';
 import Extrinsic from './Extrinsic.js';
 import Signing from './index.js';
-import { westendMetadata } from './metadataMock.js';
+import { zagrosMetadata } from './metadataMock.js';
 import Qr from './Qr.js';
 import TransactionIndex from './TransactionIndex.js';
 
@@ -80,7 +80,7 @@ describe('Signing requests', () => {
     jest.spyOn(messaging, 'cancelSignRequest').mockImplementation(() => Promise.resolve(true));
     jest.spyOn(messaging, 'approveSignPassword').mockImplementation(() => Promise.resolve(true));
     jest.spyOn(messaging, 'isSignLocked').mockImplementation(() => Promise.resolve({ isLocked: true, remainingTime: 0 }));
-    jest.spyOn(MetadataCache, 'getSavedMeta').mockImplementation(() => Promise.resolve(westendMetadata));
+    jest.spyOn(MetadataCache, 'getSavedMeta').mockImplementation(() => Promise.resolve(zagrosMetadata));
 
     signRequests = [
       {
