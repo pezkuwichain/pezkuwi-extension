@@ -12,7 +12,7 @@ import { packageInfo } from './packageInfo.js';
 
 function inject () {
   injectExtension(enable, {
-    name: 'polkadot-js',
+    name: 'pezkuwi',
     version: packageInfo.version
   });
 }

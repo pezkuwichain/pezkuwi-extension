@@ -19,6 +19,11 @@ interface Props {
 }
 
 function Identicon ({ className, iconTheme, onCopy, prefix, value }: Props): React.ReactElement<Props> {
+  // Use jdenticon as default for Pezkuwi
+  const theme = iconTheme === 'polkadot' || iconTheme === 'substrate' || iconTheme === 'pezkuwi' || !iconTheme
+    ? 'jdenticon'
+    : iconTheme;
+
   return (
     <div className={className}>
       <Icon
@@ -26,7 +31,7 @@ function Identicon ({ className, iconTheme, onCopy, prefix, value }: Props): Rea
         onCopy={onCopy}
         prefix={prefix}
         size={64}
-        theme={iconTheme}
+        theme={theme}
         value={value}
       />
     </div>

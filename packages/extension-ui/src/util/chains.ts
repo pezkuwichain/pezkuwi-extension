@@ -3,15 +3,26 @@
 
 import type { MetadataDefBase } from '@pezkuwi/extension-inject/types';
 
-import { selectableNetworks } from '@pezkuwi/networks';
+// Pezkuwi networks only - clean and focused
+const pezkuwiNetworks: MetadataDefBase[] = [
+  {
+    chain: 'Pezkuwi Relay Chain',
+    genesisHash: '0x0000000000000000000000000000000000000000000000000000000000000001',
+    icon: 'pezkuwi',
+    ss58Format: 42
+  },
+  {
+    chain: 'Zagros Relay Chain',
+    genesisHash: '0x0000000000000000000000000000000000000000000000000000000000000003',
+    icon: 'pezkuwi',
+    ss58Format: 42
+  },
+  {
+    chain: 'Pezkuwi Beta Testnet',
+    genesisHash: '0x0000000000000000000000000000000000000000000000000000000000000002',
+    icon: 'pezkuwi',
+    ss58Format: 42
+  }
+];
 
-const hashes: MetadataDefBase[] = selectableNetworks
-  .filter(({ genesisHash }) => !!genesisHash.length)
-  .map((network) => ({
-    chain: network.displayName,
-    genesisHash: network.genesisHash[0],
-    icon: network.icon,
-    ss58Format: network.prefix
-  }));
-
-export default hashes;
+export default pezkuwiNetworks;

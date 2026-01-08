@@ -19,16 +19,32 @@ export default function getLanguageOptions (): Option[] {
       value: 'en'
     },
     {
+      text: 'Kurmancî',
+      value: 'ku'
+    },
+    {
+      text: 'سۆرانی',
+      value: 'ckb'
+    },
+    {
+      text: 'Türkçe',
+      value: 'tr'
+    },
+    {
+      text: 'العربية',
+      value: 'ar'
+    },
+    {
+      text: 'فارسی',
+      value: 'fa'
+    },
+    {
       text: '汉语',
       value: 'zh'
     },
     {
       text: 'Français',
       value: 'fr'
-    },
-    {
-      text: 'Türkce',
-      value: 'tr'
     },
     {
       text: 'Polski',

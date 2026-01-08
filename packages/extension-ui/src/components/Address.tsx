@@ -144,7 +144,7 @@ function Address ({ actions, address, children, className, genesisHash, isExtern
   const theme = (
     type === 'ethereum'
       ? 'ethereum'
-      : (chain?.icon || 'polkadot')
+      : (chain?.icon || 'jdenticon')
   ) as IconTheme;
 
   const _onClick = useCallback(
