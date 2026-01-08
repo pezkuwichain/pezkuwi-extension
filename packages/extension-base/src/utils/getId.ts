@@ -1,4 +1,4 @@
-// Copyright 2019-2025 @pezkuwi/extension-base authors & contributors
+// Copyright 2019-2026 @pezkuwi/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { EXTENSION_PREFIX } from '../defaults.js';

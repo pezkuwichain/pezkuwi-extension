@@ -1,4 +1,4 @@
-// Copyright 2019-2025 @pezkuwi/extension-ui authors & contributors
+// Copyright 2019-2026 @pezkuwi/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { KeyringPair$Json } from '@pezkuwi/keyring/types';

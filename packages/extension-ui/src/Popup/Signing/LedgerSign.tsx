@@ -1,4 +1,4 @@
-// Copyright 2019-2025 @pezkuwi/extension-ui authors & contributors
+// Copyright 2019-2026 @pezkuwi/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 /* eslint-disable deprecation/deprecation */
@@ -11,11 +11,11 @@ import type { HexString } from '@pezkuwi/util/types';
 
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { merkleizeMetadata } from '@polkadot-api/merkleize-metadata';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import settings from '@pezkuwi/ui-settings';
 import { assert, objectSpread, u8aToHex } from '@pezkuwi/util';
-import { merkleizeMetadata } from '@polkadot-api/merkleize-metadata';
 
 import { Button, Warning } from '../../components/index.js';
 import { useLedger, useMetadata, useTranslation } from '../../hooks/index.js';

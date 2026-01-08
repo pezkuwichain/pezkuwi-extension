@@ -1,4 +1,4 @@
-// Copyright 2019-2025 @pezkuwi/extension-chains authors & contributors
+// Copyright 2019-2026 @pezkuwi/extension-chains authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 // Since we inject into pages, we skip this

@@ -1,4 +1,4 @@
-// Copyright 2019-2025 @pezkuwi/extension-ui authors & contributor
+// Copyright 2019-2026 @pezkuwi/extension-ui authors & contributor
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useCallback, useEffect, useState } from 'react';
