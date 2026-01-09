@@ -45,5 +45,5 @@
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
   },
-  "version": "0.62.14"
+  "version": "0.62.15"
 }
