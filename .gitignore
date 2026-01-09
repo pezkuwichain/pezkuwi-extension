@@ -32,4 +32,4 @@ docs/html
 packages/extension/manifest.json
 
 # Diff script generates ff-diff
-ff-diff
+ff-diff*.zip

@@ -56,7 +56,7 @@ export interface MetadataDefBase {
   genesisHash: HexString;
   icon: string;
   ss58Format: number;
-  chainType?: 'substrate' | 'ethereum'
+  chainType?: 'bizinikiwi' | 'ethereum'
 }
 
 export interface MetadataDef extends MetadataDefBase {

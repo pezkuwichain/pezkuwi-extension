@@ -53,7 +53,7 @@ export function metadataExpand (definition: MetadataDef, isPartial = false): Cha
       ? undefined
       : genesisHash,
     hasMetadata,
-    icon: icon || 'substrate',
+    icon: icon || 'bizinikiwi',
     isUnknown,
     name: chain,
     registry,
