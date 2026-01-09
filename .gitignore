@@ -20,6 +20,7 @@ master-chrome-build.zip
 master-chrome-src.zip
 master-ff-build.zip
 master-ff-src.zip
+pezkuwi-extension-*.zip
 npm-debug.log*
 tsconfig.*buildinfo
 yarn-debug.log*
