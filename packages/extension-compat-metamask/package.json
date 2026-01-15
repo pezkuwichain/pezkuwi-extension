@@ -18,7 +18,7 @@
     "./packageDetect.cjs"
   ],
   "type": "module",
-  "version": "0.62.14",
+  "version": "0.62.16",
   "main": "index.js",
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",

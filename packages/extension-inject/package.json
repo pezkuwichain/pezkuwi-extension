@@ -15,15 +15,15 @@
   },
   "sideEffects": true,
   "type": "module",
-  "version": "0.62.14",
+  "version": "0.62.16",
   "main": "index.js",
   "dependencies": {
-    "@pezkuwi/api": "^16.5.5",
-    "@pezkuwi/rpc-provider": "^16.5.5",
-    "@pezkuwi/types": "^16.5.5",
-    "@pezkuwi/util": "^14.0.5",
-    "@pezkuwi/util-crypto": "^14.0.5",
-    "@pezkuwi/x-global": "^14.0.5",
+    "@pezkuwi/api": "^16.5.9",
+    "@pezkuwi/rpc-provider": "^16.5.9",
+    "@pezkuwi/types": "^16.5.9",
+    "@pezkuwi/util": "^14.0.11",
+    "@pezkuwi/util-crypto": "^14.0.11",
+    "@pezkuwi/x-global": "^14.0.11",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
