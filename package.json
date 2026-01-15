@@ -1,12 +1,12 @@
 {
-  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "author": "Kurdistan Tech Institute <dev@pezkuwichain.io> & PezkuwiChain Team <team@pezkuwichain.io>",
   "bugs": "https://github.com/pezkuwichain/pezkuwi-extension/issues",
   "engines": {
     "node": ">=18.14"
   },
   "homepage": "https://github.com/pezkuwichain/pezkuwi-extension#readme",
   "license": "Apache-2.0",
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.12.0",
   "private": true,
   "repository": {
     "type": "git",
@@ -49,6 +49,7 @@
     "@pezkuwi/dev": "^0.85.2",
     "@types/node": "^20.10.5",
     "i18next-scanner": "^4.4.0",
+    "rollup": "^4.55.1",
     "sinon-chrome": "^3.0.1"
   },
   "resolutions": {
@@ -79,6 +80,8 @@
     "@pezkuwi/x-textdecoder": "^14.0.7",
     "@pezkuwi/x-textencoder": "^14.0.7",
     "@pezkuwi/x-ws": "^14.0.7",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "safe-buffer": "^5.2.1",
     "typescript": "^5.5.4"
   }
