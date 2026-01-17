@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"composite": true,
     "target": "ES2020",
+    "skipLibCheck": true,
     /* FIXME Dropzone is problematic with nodenext resolution */
     "module": "ESNext",
     "moduleResolution": "Bundler",
