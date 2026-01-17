@@ -15,10 +15,10 @@
   },
   "sideEffects": true,
   "type": "module",
+  "types": "./build/index.d.ts",
   "version": "0.62.19",
   "main": "./build/cjs/index.js",
   "module": "./build/index.js",
-  "types": "./build/index.d.ts",
   "exports": {
     ".": {
       "module": {
@@ -34,6 +34,7 @@
         "default": "./build/index.js"
       }
     },
+    "./package.json": "./package.json",
     "./types": {
       "module": {
         "types": "./build/types.d.ts",
@@ -47,8 +48,7 @@
         "types": "./build/types.d.ts",
         "default": "./build/types.js"
       }
-    },
-    "./package.json": "./package.json"
+    }
   },
   "dependencies": {
     "@pezkuwi/api": "^16.5.9",

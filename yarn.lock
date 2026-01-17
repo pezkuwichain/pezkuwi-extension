@@ -1280,7 +1280,7 @@ __metadata:
   resolution: "@pezkuwi/extension-dapp@workspace:packages/extension-dapp"
   dependencies:
     "@pezkuwi/dev-test": "npm:^0.84.3"
-    "@pezkuwi/extension-inject": "npm:0.62.14"
+    "@pezkuwi/extension-inject": "npm:0.62.19"
     "@pezkuwi/util": "npm:^14.0.11"
     "@pezkuwi/util-crypto": "npm:^14.0.11"
     tslib: "npm:^2.8.1"
@@ -1291,25 +1291,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@pezkuwi/extension-inject@npm:0.62.14":
-  version: 0.62.14
-  resolution: "@pezkuwi/extension-inject@npm:0.62.14"
-  dependencies:
-    "@pezkuwi/api": "npm:^16.5.5"
-    "@pezkuwi/rpc-provider": "npm:^16.5.5"
-    "@pezkuwi/types": "npm:^16.5.5"
-    "@pezkuwi/util": "npm:^14.0.5"
-    "@pezkuwi/util-crypto": "npm:^14.0.5"
-    "@pezkuwi/x-global": "npm:^14.0.5"
-    tslib: "npm:^2.8.1"
-  peerDependencies:
-    "@pezkuwi/api": "*"
-    "@pezkuwi/util": "*"
-  checksum: 10/fd1c7d7793da98a1cd90685dabf202de5cd001b48b2e26b5174ac5cf146e93018be91421a986751341ecee787c4b707ed04a0a7797a818e70300bcec61a619a3
-  languageName: node
-  linkType: hard
-
-"@pezkuwi/extension-inject@workspace:*, @pezkuwi/extension-inject@workspace:packages/extension-inject":
+"@pezkuwi/extension-inject@npm:0.62.19, @pezkuwi/extension-inject@workspace:*, @pezkuwi/extension-inject@workspace:packages/extension-inject":
   version: 0.0.0-use.local
   resolution: "@pezkuwi/extension-inject@workspace:packages/extension-inject"
   dependencies:
