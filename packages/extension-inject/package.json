@@ -16,7 +16,7 @@
   "sideEffects": true,
   "type": "module",
   "types": "./build/index.d.ts",
-  "version": "0.62.19",
+  "version": "0.62.20",
   "main": "./build/cjs/index.js",
   "module": "./build/index.js",
   "exports": {

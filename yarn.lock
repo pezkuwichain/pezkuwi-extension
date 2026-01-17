@@ -1280,7 +1280,7 @@ __metadata:
   resolution: "@pezkuwi/extension-dapp@workspace:packages/extension-dapp"
   dependencies:
     "@pezkuwi/dev-test": "npm:^0.84.3"
-    "@pezkuwi/extension-inject": "npm:0.62.19"
+    "@pezkuwi/extension-inject": "npm:0.62.20"
     "@pezkuwi/util": "npm:^14.0.11"
     "@pezkuwi/util-crypto": "npm:^14.0.11"
     tslib: "npm:^2.8.1"
@@ -1291,7 +1291,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@pezkuwi/extension-inject@npm:0.62.19, @pezkuwi/extension-inject@workspace:*, @pezkuwi/extension-inject@workspace:packages/extension-inject":
+"@pezkuwi/extension-inject@npm:0.62.20, @pezkuwi/extension-inject@workspace:*, @pezkuwi/extension-inject@workspace:packages/extension-inject":
   version: 0.0.0-use.local
   resolution: "@pezkuwi/extension-inject@workspace:packages/extension-inject"
   dependencies:
