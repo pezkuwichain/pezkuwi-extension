@@ -3,7 +3,12 @@
   "compilerOptions": {
     "baseUrl": "..",
     "outDir": "./build",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    // extension-ui is not published to npm - declarations are not needed
+    // This also fixes TS2742 errors with styled-components v6 + TypeScript 5.5+
+    "declaration": false,
+    "declarationMap": false,
+    "emitDeclarationOnly": false
   },
   "exclude": [
     "**/*.spec.ts"
