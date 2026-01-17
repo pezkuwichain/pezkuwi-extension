@@ -16,7 +16,40 @@
   "sideEffects": true,
   "type": "module",
   "version": "0.62.19",
-  "main": "index.js",
+  "main": "./build/cjs/index.js",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "exports": {
+    ".": {
+      "module": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      },
+      "require": {
+        "types": "./build/cjs/index.d.ts",
+        "default": "./build/cjs/index.js"
+      },
+      "default": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./types": {
+      "module": {
+        "types": "./build/types.d.ts",
+        "default": "./build/types.js"
+      },
+      "require": {
+        "types": "./build/cjs/types.d.ts",
+        "default": "./build/cjs/types.js"
+      },
+      "default": {
+        "types": "./build/types.d.ts",
+        "default": "./build/types.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "dependencies": {
     "@pezkuwi/api": "^16.5.9",
     "@pezkuwi/rpc-provider": "^16.5.9",
