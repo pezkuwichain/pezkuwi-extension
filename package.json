@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.62.16",
+  "version": "0.62.18",
   "versions": {
     "git": "0.62.6",
     "npm": "0.62.6"
@@ -48,9 +48,12 @@
   "devDependencies": {
     "@pezkuwi/dev": "^0.85.2",
     "@types/node": "^20.10.5",
+    "eslint-scope": "^5.1.1",
     "i18next-scanner": "^4.4.0",
     "rollup": "^4.55.1",
-    "sinon-chrome": "^3.0.1"
+    "sinon-chrome": "^3.0.1",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4"
   },
   "resolutions": {
     "@pezkuwi/api": "^16.5.6",

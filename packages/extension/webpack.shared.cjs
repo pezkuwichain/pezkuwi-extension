@@ -26,8 +26,25 @@ module.exports = (entry, alias = {}) => ({
   context: __dirname,
   devtool: false,
   entry,
+  target: ['web', 'es2022'],
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        loader: 'string-replace-loader',
+        options: {
+          multiple: [
+            {
+              search: /Function\s*\(\s*["']return this["']\s*\)\s*\(\s*\)/g,
+              replace: 'globalThis'
+            },
+            {
+              search: /Function\s*\(\s*["']return this["']\s*\)/g,
+              replace: '(function(){return globalThis})'
+            }
+          ]
+        }
+      },
       {
         exclude: /(node_modules)/,
         test: /\.(ts|tsx)$/,
@@ -59,11 +76,39 @@ module.exports = (entry, alias = {}) => ({
   output: {
     chunkFilename: '[name].js',
     filename: '[name].js',
-    globalObject: '(typeof self !== \'undefined\' ? self : this)',
-    path: path.join(__dirname, 'build')
+    globalObject: 'globalThis',
+    path: path.join(__dirname, 'build'),
+    environment: {
+      arrowFunction: true,
+      bigIntLiteral: true,
+      const: true,
+      destructuring: true,
+      dynamicImport: true,
+      forOf: true,
+      module: true,
+      optionalChaining: true,
+      templateLiteral: true
+    }
   },
   performance: {
     hints: false
+  },
+  optimization: {
+    minimizer: [
+      new (require('terser-webpack-plugin'))({
+        terserOptions: {
+          compress: {
+            evaluate: false,
+            unsafe_Function: false
+          },
+          mangle: true,
+          format: {
+            comments: false
+          }
+        },
+        extractComments: false
+      })
+    ]
   },
   plugins: [
     new webpack.ProvidePlugin({

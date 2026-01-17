@@ -18,7 +18,7 @@
     "./packageDetect.cjs"
   ],
   "type": "module",
-  "version": "0.62.16",
+  "version": "0.62.18",
   "main": "index.js",
   "dependencies": {
     "@pezkuwi/extension-inject": "workspace:*",

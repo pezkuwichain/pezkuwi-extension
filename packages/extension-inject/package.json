@@ -15,7 +15,7 @@
   },
   "sideEffects": true,
   "type": "module",
-  "version": "0.62.16",
+  "version": "0.62.18",
   "main": "index.js",
   "dependencies": {
     "@pezkuwi/api": "^16.5.9",
