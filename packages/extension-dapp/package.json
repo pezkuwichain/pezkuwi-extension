@@ -18,10 +18,43 @@
     "./packageDetect.cjs"
   ],
   "type": "module",
+  "types": "./build/index.d.ts",
   "version": "0.62.19",
-  "main": "index.js",
+  "main": "./build/cjs/index.js",
+  "module": "./build/index.js",
+  "exports": {
+    ".": {
+      "module": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      },
+      "require": {
+        "types": "./build/cjs/index.d.ts",
+        "default": "./build/cjs/index.js"
+      },
+      "default": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./bundle": {
+      "module": {
+        "types": "./build/bundle.d.ts",
+        "default": "./build/bundle.js"
+      },
+      "require": {
+        "types": "./build/cjs/bundle.d.ts",
+        "default": "./build/cjs/bundle.js"
+      },
+      "default": {
+        "types": "./build/bundle.d.ts",
+        "default": "./build/bundle.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "dependencies": {
-    "@pezkuwi/extension-inject": "0.62.14",
+    "@pezkuwi/extension-inject": "0.62.19",
     "@pezkuwi/util": "^14.0.11",
     "@pezkuwi/util-crypto": "^14.0.11",
     "tslib": "^2.8.1"
