@@ -3,9 +3,7 @@
   "compilerOptions": {
     "baseUrl": "..",
     "outDir": "./build",
-    "rootDir": "./src",
-    // Required for styled-components v6 declaration emission compatibility
-    "skipLibCheck": true
+    "rootDir": "./src"
   },
   "exclude": [
     "**/*.spec.ts"

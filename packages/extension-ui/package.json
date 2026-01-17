@@ -52,7 +52,7 @@
     "react-is": "^18.2.0",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
-    "styled-components": "^6.1.1",
+    "styled-components": "^5.3.11",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
@@ -66,6 +66,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@types/sinon-chrome": "^2.2.15",
+    "@types/styled-components": "^5.1.26",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",

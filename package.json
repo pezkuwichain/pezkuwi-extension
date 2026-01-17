@@ -46,7 +46,7 @@
     "test:one": "EXTENSION_PREFIX='test' pezkuwi-dev-run-test --env browser"
   },
   "devDependencies": {
-    "@pezkuwi/dev": "^0.85.2",
+    "@pezkuwi/dev": "^0.85.4",
     "@types/node": "^20.10.5",
     "eslint-scope": "^5.1.1",
     "i18next-scanner": "^4.4.0",
