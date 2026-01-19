@@ -18,7 +18,7 @@
     "./packageDetect.cjs"
   ],
   "type": "module",
-  "version": "0.62.19",
+  "version": "0.62.20",
   "main": "index.js",
   "dependencies": {
     "@pezkuwi/api": "^16.5.9",
