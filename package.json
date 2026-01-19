@@ -25,8 +25,8 @@
   "scripts": {
     "build": "yarn build:chrome && yarn build:ff",
     "build:before": "yarn build:i18n",
-    "build:chrome": "cp ./packages/extension/manifest_chrome.json ./packages/extension/manifest.json && pezkuwi-dev-build-ts && yarn build:zip:chrome && yarn build:rollup",
-    "build:ff": "cp ./packages/extension/manifest_firefox.json ./packages/extension/manifest.json && pezkuwi-dev-build-ts && yarn build:zip:ff && yarn build:rollup",
+    "build:chrome": "cp ./packages/extension/manifest_chrome.json ./packages/extension/manifest.json && pezkuwi-dev-build-ts && node scripts/postbuild-cleanup.cjs && yarn build:zip:chrome && yarn build:rollup",
+    "build:ff": "cp ./packages/extension/manifest_firefox.json ./packages/extension/manifest.json && pezkuwi-dev-build-ts && node scripts/postbuild-cleanup.cjs && yarn build:zip:ff && yarn build:rollup",
     "build:i18n": "i18next-scanner --config i18next-scanner.config.cjs",
     "build:release": "pezkuwi-ci-ghact-build",
     "build:rollup": "pezkuwi-exec-rollup --config",
@@ -40,6 +40,7 @@
     "clean": "pezkuwi-dev-clean-build",
     "diff": "rm -rf ff-diff && sh ./scripts/diff.sh",
     "lint": "pezkuwi-dev-run-lint",
+    "lint:extension": "npx web-ext lint --source-dir ./packages/extension/build",
     "pezkuwi-exec-webpack": "pezkuwi-exec-webpack",
     "postinstall": "echo ok",
     "test": "EXTENSION_PREFIX='test' pezkuwi-dev-run-test --loader ./packages/extension-mocks/src/loader-empty.js --env browser ^:.spec.tsx",
