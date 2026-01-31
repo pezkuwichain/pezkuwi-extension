@@ -1,0 +1,8 @@
+{
+  "version": {
+    "license": "Apache-2.0"
+  },
+  "categories": {
+    "firefox": ["privacy-security"]
+  }
+}
