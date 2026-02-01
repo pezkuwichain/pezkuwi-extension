@@ -61,10 +61,18 @@ function getActiveTabs () {
   });
 }
 
-chrome.runtime.onMessage.addListener((message: { type: string }, _, sendResponse) => {
+chrome.runtime.onMessage.addListener((message: { type: string }, _, sendResponse): boolean | undefined => {
   if (message.type === 'wakeup') {
-    sendResponse({ status: 'awake' });
+    // Wait for crypto/keyring to be ready before responding awake
+    waitForInit()
+      .then(() => sendResponse({ status: 'awake' }))
+      .catch(() => sendResponse({ status: 'error' }));
+
+    // Return true to indicate we will respond asynchronously
+    return true;
   }
+
+  return undefined;
 });
 
 // listen to tab updates this is fired on url change
@@ -94,16 +102,46 @@ chrome.tabs.onRemoved.addListener(() => {
   getActiveTabs();
 });
 
-// initial setup
-cryptoWaitReady()
-  .then((): void => {
-    console.log('crypto initialized');
+// Track initialization state
+let isInitialized = false;
+let initializationPromise: Promise<void> | null = null;
 
-    // load all the keyring data
-    keyring.loadAll({ store: new AccountsStore(), type: 'sr25519' });
+// Wait for initialization before processing - used by wakeup handler
+function waitForInit (): Promise<void> {
+  if (isInitialized) {
+    return Promise.resolve();
+  }
 
-    console.log('initialization completed');
-  })
-  .catch((error): void => {
-    console.error('initialization failed', error);
-  });
+  if (initializationPromise) {
+    return initializationPromise;
+  }
+
+  // If init hasn't started yet, start it now
+  return startInit();
+}
+
+function startInit (): Promise<void> {
+  if (initializationPromise) {
+    return initializationPromise;
+  }
+
+  initializationPromise = cryptoWaitReady()
+    .then((): void => {
+      console.log('crypto initialized');
+
+      // load all the keyring data
+      keyring.loadAll({ store: new AccountsStore(), type: 'sr25519' });
+
+      isInitialized = true;
+      console.log('initialization completed');
+    })
+    .catch((error): void => {
+      console.error('initialization failed', error);
+      throw error;
+    });
+
+  return initializationPromise;
+}
+
+// Start initialization
+startInit();
