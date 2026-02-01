@@ -15,7 +15,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.62.20",
+  "version": "0.62.21",
   "scripts": {
     "pezkuwi-exec-webpack": "pezkuwi-exec-webpack"
   },

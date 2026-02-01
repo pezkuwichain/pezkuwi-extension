@@ -29,6 +29,15 @@ const SEED_DEFAULT_LENGTH = 12;
 const SEED_LENGTHS = [12, 15, 18, 21, 24];
 const ETH_DERIVE_DEFAULT = "/m/44'/60'/0'/0/0";
 
+// PezkuwiChain custom signed extensions
+// AuthorizeCall is a no-op extension that must be present for signing to work
+const PEZKUWI_USER_EXTENSIONS: Record<string, { extrinsic: Record<string, string>; payload: Record<string, string> }> = {
+  AuthorizeCall: {
+    extrinsic: {},
+    payload: {}
+  }
+};
+
 function getSuri (seed: string, type?: KeypairType): string {
   return type === 'ethereum'
     ? `${seed}${ETH_DERIVE_DEFAULT}`
@@ -379,11 +388,15 @@ export default class Extension {
         const expanded = metadataExpand(metadata, false);
 
         registry = expanded.registry;
-        registry.setSignedExtensions(payload.signedExtensions, expanded.definition.userExtensions);
+        // Merge PezkuwiChain user extensions with any from metadata
+        const mergedUserExtensions = { ...PEZKUWI_USER_EXTENSIONS, ...expanded.definition.userExtensions };
+
+        registry.setSignedExtensions(payload.signedExtensions, mergedUserExtensions);
       } else {
         // we have no metadata, create a new registry
         registry = new TypeRegistry();
-        registry.setSignedExtensions(payload.signedExtensions);
+        // Always include PezkuwiChain user extensions for signing to work
+        registry.setSignedExtensions(payload.signedExtensions, PEZKUWI_USER_EXTENSIONS);
       }
     } else {
       // for non-payload, just create a registry to use
