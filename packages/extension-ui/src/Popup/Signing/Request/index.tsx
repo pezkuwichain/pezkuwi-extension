@@ -39,6 +39,14 @@ export const CMD_SIGN_MESSAGE = 3;
 // keep it global, we can and will re-use this across requests
 const registry = new TypeRegistry();
 
+// PezkuwiChain requires AuthorizeCall signed extension for all transactions
+const PEZKUWI_USER_EXTENSIONS = {
+  AuthorizeCall: {
+    extrinsic: {},
+    payload: {}
+  }
+};
+
 function isRawPayload (payload: SignerPayloadJSON | SignerPayloadRaw): payload is SignerPayloadRaw {
   return !!(payload as SignerPayloadRaw).data;
 }
@@ -67,7 +75,8 @@ export default function Request ({ account: { accountIndex, addressOffset, genes
         payload: null
       });
     } else {
-      registry.setSignedExtensions(payload.signedExtensions);
+      // Always include PezkuwiChain user extensions
+      registry.setSignedExtensions(payload.signedExtensions, PEZKUWI_USER_EXTENSIONS);
 
       setData({
         hexBytes: null,
