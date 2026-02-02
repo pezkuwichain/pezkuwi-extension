@@ -325,7 +325,8 @@ export default class Extension {
   }
 
   private seedCreate ({ length = SEED_DEFAULT_LENGTH, seed: _seed, type }: RequestSeedCreate): ResponseSeedCreate {
-    const seed = _seed || mnemonicGenerate(length);
+    // Use onlyJs=true because wasm-crypto doesn't implement bip39Generate
+    const seed = _seed || mnemonicGenerate(length, undefined, true);
 
     return {
       address: keyring.createFromUri(getSuri(seed, type), {}, type).address,
