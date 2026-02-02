@@ -14,17 +14,24 @@ export default class Backend {
 
   static type = 'backend' as const;
 
+  // Map 'default' language to 'en' since there's no 'default' locale folder
+  private normalizeLanguage (lng: string): string {
+    return lng === 'default' ? 'en' : lng;
+  }
+
   async read (lng: string, _namespace: string, responder: Callback): Promise<void> {
-    if (languageCache[lng]) {
-      return responder(null, languageCache[lng]);
+    const normalizedLng = this.normalizeLanguage(lng);
+
+    if (languageCache[normalizedLng]) {
+      return responder(null, languageCache[normalizedLng]);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    if (!loaders[lng]) {
-      loaders[lng] = this.createLoader(lng);
+    if (!loaders[normalizedLng]) {
+      loaders[normalizedLng] = this.createLoader(normalizedLng);
     }
 
-    const [error, data] = await loaders[lng];
+    const [error, data] = await loaders[normalizedLng];
 
     return responder(error, data);
   }
