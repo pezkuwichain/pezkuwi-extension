@@ -19,13 +19,38 @@ import { cryptoWaitReady } from '@pezkuwi/util-crypto';
 // setup the notification (same a FF default background, white text)
 withErrorLog(() => chrome.action.setBadgeBackgroundColor({ color: '#d90000' }));
 
+// Initialization promise - handlers must wait for this
+let initPromise: Promise<void> | null = null;
+
+function initializeExtension (): Promise<void> {
+  if (!initPromise) {
+    initPromise = cryptoWaitReady()
+      .then((): void => {
+        console.log('crypto initialized');
+        keyring.loadAll({ store: new AccountsStore(), type: 'sr25519' });
+        console.log('initialization completed');
+      });
+  }
+
+  return initPromise;
+}
+
+// Start initialization immediately
+initializeExtension().catch((error): void => {
+  console.error('initialization failed', error);
+});
+
 // listen to all messages and handle appropriately
 chrome.runtime.onConnect.addListener((port): void => {
   // shouldn't happen, however... only listen to what we know about
   assert([PORT_CONTENT, PORT_EXTENSION].includes(port.name), `Unknown connection from ${port.name}`);
 
-  // message and disconnect handlers
-  port.onMessage.addListener((data: TransportRequestMessage<keyof RequestSignatures>) => handlers(data, port));
+  // message and disconnect handlers - wait for init before handling
+  port.onMessage.addListener((data: TransportRequestMessage<keyof RequestSignatures>) => {
+    initializeExtension()
+      .then(() => handlers(data, port))
+      .catch((error) => console.error('Handler error:', error));
+  });
   port.onDisconnect.addListener(() => console.log(`Disconnected from ${port.name}`));
 });
 
@@ -57,22 +82,17 @@ function getActiveTabs () {
       request: { urls }
     };
 
-    handlers(request);
+    // Wait for initialization before handling
+    initializeExtension()
+      .then(() => handlers(request))
+      .catch((error) => console.error('Handler error:', error));
   });
 }
 
-chrome.runtime.onMessage.addListener((message: { type: string }, _, sendResponse): boolean | undefined => {
+chrome.runtime.onMessage.addListener((message: { type: string }, _, sendResponse) => {
   if (message.type === 'wakeup') {
-    // Wait for crypto/keyring to be ready before responding awake
-    waitForInit()
-      .then(() => sendResponse({ status: 'awake' }))
-      .catch(() => sendResponse({ status: 'error' }));
-
-    // Return true to indicate we will respond asynchronously
-    return true;
+    sendResponse({ status: 'awake' });
   }
-
-  return undefined;
 });
 
 // listen to tab updates this is fired on url change
@@ -102,46 +122,4 @@ chrome.tabs.onRemoved.addListener(() => {
   getActiveTabs();
 });
 
-// Track initialization state
-let isInitialized = false;
-let initializationPromise: Promise<void> | null = null;
-
-// Wait for initialization before processing - used by wakeup handler
-function waitForInit (): Promise<void> {
-  if (isInitialized) {
-    return Promise.resolve();
-  }
-
-  if (initializationPromise) {
-    return initializationPromise;
-  }
-
-  // If init hasn't started yet, start it now
-  return startInit();
-}
-
-function startInit (): Promise<void> {
-  if (initializationPromise) {
-    return initializationPromise;
-  }
-
-  initializationPromise = cryptoWaitReady()
-    .then((): void => {
-      console.log('crypto initialized');
-
-      // load all the keyring data
-      keyring.loadAll({ store: new AccountsStore(), type: 'sr25519' });
-
-      isInitialized = true;
-      console.log('initialization completed');
-    })
-    .catch((error): void => {
-      console.error('initialization failed', error);
-      throw error;
-    });
-
-  return initializationPromise;
-}
-
-// Start initialization
-startInit();
+// Note: initialization is handled by initializeExtension() above

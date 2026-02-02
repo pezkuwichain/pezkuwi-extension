@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.62.21",
+  "version": "0.62.24",
   "versions": {
     "git": "0.62.6",
     "npm": "0.62.6"
@@ -77,6 +77,7 @@
     "@pezkuwi/ui-shared": "^3.17.1",
     "@pezkuwi/util": "^14.0.25",
     "@pezkuwi/util-crypto": "^14.0.25",
+    "@pezkuwi/wasm-crypto": "^7.5.18",
     "@pezkuwi/x-bigint": "^14.0.25",
     "@pezkuwi/x-fetch": "^14.0.25",
     "@pezkuwi/x-global": "^14.0.25",
