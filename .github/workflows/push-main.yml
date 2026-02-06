@@ -6,30 +6,96 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     if: "! startsWith(github.event.head_commit.message, '[CI Skip]')"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
     - uses: actions/setup-node@v4
       with:
         node-version: 'lts/*'
-    - name: Build
+
+    - name: Bump Version
+      id: version
+      run: |
+        # Get current version from manifest
+        CURRENT_VERSION=$(grep -oP '"version":\s*"\K[^"]+' packages/extension/manifest_chrome.json | head -1)
+        echo "Current version: $CURRENT_VERSION"
+
+        # Parse version parts
+        MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+        MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+        PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
+
+        # Increment patch version
+        NEW_PATCH=$((PATCH + 1))
+        NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+        echo "New version: $NEW_VERSION"
+
+        # Update manifest files
+        sed -i "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/" packages/extension/manifest_chrome.json
+        sed -i "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/" packages/extension/manifest_firefox.json
+
+        echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+    - name: Commit Version Bump
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add packages/extension/manifest_chrome.json packages/extension/manifest_firefox.json
+        git diff --staged --quiet || git commit -m "[CI Skip] Bump version to ${{ steps.version.outputs.version }}"
+        git push || echo "Nothing to push"
+
+    - name: Build Chrome
       run: |
         corepack enable
         yarn install --immutable
-        yarn build
+        yarn build:chrome
+
+    - name: Build Firefox
+      run: |
+        yarn build:ff
+
     - name: Upload Chrome Build
       uses: actions/upload-artifact@v4
       with:
         name: chrome-build
         path: master-chrome-build.zip
         if-no-files-found: ignore
+
     - name: Upload Firefox Build
       uses: actions/upload-artifact@v4
       with:
         name: firefox-build
         path: master-ff-build.zip
         if-no-files-found: ignore
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.VPS1_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 37.60.230.9 >> ~/.ssh/known_hosts
+
+    - name: Deploy to VPS1
+      run: |
+        # Upload zip files
+        scp master-chrome-build.zip master-ff-build.zip root@37.60.230.9:/var/www/subdomains/js/download/
+
+        # Rename and extract on server
+        ssh root@37.60.230.9 << 'EOF'
+          cd /var/www/subdomains/js/download
+          mv master-chrome-build.zip pezkuwi-extension-chrome.zip
+          mv master-ff-build.zip pezkuwi-extension-firefox.zip
+
+          cd /var/www/subdomains/js
+          rm -rf extension/*
+          unzip -o download/pezkuwi-extension-chrome.zip -d extension/
+
+          echo "Deployed version:"
+          grep '"version"' extension/manifest.json
+        EOF
