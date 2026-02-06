@@ -10,7 +10,7 @@ import { chrome } from '@pezkuwi/extension-inject/chrome';
 let port: chrome.runtime.Port | undefined;
 
 function onPortMessageHandler (data: Message['data']): void {
-  window.postMessage({ ...data, origin: MESSAGE_ORIGIN_CONTENT }, '*');
+  window.postMessage({ ...data, origin: MESSAGE_ORIGIN_CONTENT }, window.location.origin);
 }
 
 function onPortDisconnectHandler (): void {

@@ -47,7 +47,7 @@ export function sendMessage<TMessageType extends MessageTypes> (message: TMessag
       request: request || null as RequestTypes[TMessageType]
     };
 
-    window.postMessage(transportRequestMessage, '*');
+    window.postMessage(transportRequestMessage, window.location.origin);
   });
 }
 

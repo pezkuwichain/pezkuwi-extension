@@ -132,6 +132,9 @@ export default class State {
   #maxEntries = 10;
   #rateLimitInterval = 3000; // 3 seconds
 
+  // Track pending authorization URLs to prevent race conditions
+  readonly #pendingAuthUrls = new Set<string>();
+
   readonly #authRequests: Record<string, AuthRequest> = {};
 
   readonly #metaStore = new MetadataStore();
@@ -248,7 +251,7 @@ export default class State {
         });
   }
 
-  private authComplete = (id: string, resolve: (resValue: AuthResponse) => void, reject: (error: Error) => void): Resolver<AuthResponse> => {
+  private authComplete = (id: string, resolve: (resValue: AuthResponse) => void, reject: (error: Error) => void, pendingIdStr?: string): Resolver<AuthResponse> => {
     const complete = async (authorizedAccounts: string[] = []) => {
       const { idStr, request: { origin }, url } = this.#authRequests[id];
 
@@ -273,12 +276,23 @@ export default class State {
       await this.saveCurrentAuthList();
       await this.updateDefaultAuthAccounts(authorizedAccounts);
       delete this.#authRequests[id];
+
+      // Remove from pending set to allow future requests
+      if (pendingIdStr) {
+        this.#pendingAuthUrls.delete(pendingIdStr);
+      }
+
       this.updateIconAuth(true);
     };
 
     return {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       reject: async (error: Error): Promise<void> => {
+        // Always remove from pending set on rejection
+        if (pendingIdStr) {
+          this.#pendingAuthUrls.delete(pendingIdStr);
+        }
+
         if (error.message === 'Cancelled') {
           delete this.#authRequests[id];
           this.updateIconAuth(true);
@@ -329,6 +343,13 @@ export default class State {
   }
 
   public deleteAuthRequest (requestId: string) {
+    // Remove from pending set before deleting
+    const request = this.#authRequests[requestId];
+
+    if (request?.idStr) {
+      this.#pendingAuthUrls.delete(request.idStr);
+    }
+
     delete this.#authRequests[requestId];
     this.updateIconAuth(true);
   }
@@ -470,7 +491,10 @@ export default class State {
   public async authorizeUrl (url: string, request: RequestAuthorizeTab): Promise<AuthResponse> {
     const idStr = this.stripUrl(url);
 
-    // Do not enqueue duplicate authorization requests.
+    // Synchronous check to prevent race conditions - check pending Set first
+    assert(!this.#pendingAuthUrls.has(idStr), `The source ${url} has a pending authorization request`);
+
+    // Do not enqueue duplicate authorization requests (secondary check for existing requests).
     const isDuplicate = Object
       .values(this.#authRequests)
       .some((request) => request.idStr === idStr);
@@ -489,11 +513,14 @@ export default class State {
       };
     }
 
+    // Add to pending set immediately (synchronous) to prevent race conditions
+    this.#pendingAuthUrls.add(idStr);
+
     return new Promise((resolve, reject): void => {
       const id = getId();
 
       this.#authRequests[id] = {
-        ...this.authComplete(id, resolve, reject),
+        ...this.authComplete(id, resolve, reject, idStr),
         id,
         idStr,
         request,
