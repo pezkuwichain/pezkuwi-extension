@@ -85,6 +85,15 @@ export enum NotificationOptions {
 
 const AUTH_URLS_KEY = 'authUrls';
 const DEFAULT_AUTH_ACCOUNTS = 'defaultAuthAccounts';
+const SECURITY_LOG_KEY = 'securityLog';
+const MAX_SECURITY_LOG_ENTRIES = 100;
+
+interface SecurityLogEntry {
+  timestamp: number;
+  event: 'auth_granted' | 'auth_denied' | 'auth_cancelled' | 'sign_approved' | 'sign_rejected' | 'rate_limit_hit';
+  origin: string;
+  details?: string;
+}
 
 async function extractMetadata (store: MetadataStore): Promise<void> {
   await store.allMap(async (map): Promise<void> => {
@@ -129,8 +138,10 @@ export default class State {
   #authUrls = new Map<string, AuthUrlInfo>();
 
   #lastRequestTimestamps = new Map<string, number>();
+  #lastAuthTimestamps = new Map<string, number>(); // Rate limit for authorization requests
   #maxEntries = 10;
-  #rateLimitInterval = 3000; // 3 seconds
+  #rateLimitInterval = 3000; // 3 seconds for signing
+  #authRateLimitInterval = 5000; // 5 seconds for authorization (prevent spam)
 
   // Track pending authorization URLs to prevent race conditions
   readonly #pendingAuthUrls = new Set<string>();
@@ -191,6 +202,40 @@ export default class State {
     const previousDefaultAuth = JSON.parse(defaultAuthString) as string[];
 
     this.defaultAuthAccountSelection = previousDefaultAuth;
+  }
+
+  // Security event logging for audit trail
+  private async logSecurityEvent (event: SecurityLogEntry['event'], origin: string, details?: string): Promise<void> {
+    try {
+      const storageData = await chrome.storage.local.get(SECURITY_LOG_KEY);
+      const logs: SecurityLogEntry[] = JSON.parse(storageData[SECURITY_LOG_KEY] || '[]');
+
+      logs.push({
+        timestamp: Date.now(),
+        event,
+        origin,
+        details
+      });
+
+      // Keep only the last MAX_SECURITY_LOG_ENTRIES entries
+      const trimmedLogs = logs.slice(-MAX_SECURITY_LOG_ENTRIES);
+
+      await chrome.storage.local.set({ [SECURITY_LOG_KEY]: JSON.stringify(trimmedLogs) });
+    } catch (e) {
+      // Don't let logging failures affect normal operation
+      console.error('Failed to log security event:', e);
+    }
+  }
+
+  // Public method to retrieve security logs (for UI display)
+  public async getSecurityLogs (): Promise<SecurityLogEntry[]> {
+    try {
+      const storageData = await chrome.storage.local.get(SECURITY_LOG_KEY);
+
+      return JSON.parse(storageData[SECURITY_LOG_KEY] || '[]');
+    } catch {
+      return [];
+    }
   }
 
   public get knownMetadata (): MetadataDef[] {
@@ -288,6 +333,8 @@ export default class State {
     return {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       reject: async (error: Error): Promise<void> => {
+        const { url } = this.#authRequests[id] || {};
+
         // Always remove from pending set on rejection
         if (pendingIdStr) {
           this.#pendingAuthUrls.delete(pendingIdStr);
@@ -296,15 +343,20 @@ export default class State {
         if (error.message === 'Cancelled') {
           delete this.#authRequests[id];
           this.updateIconAuth(true);
+          await this.logSecurityEvent('auth_cancelled', url || 'unknown');
           reject(new Error('Connection request was cancelled by the user.'));
         } else {
           await complete();
+          await this.logSecurityEvent('auth_denied', url || 'unknown');
           reject(new Error('Connection request was rejected by the user.'));
         }
       },
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       resolve: async ({ authorizedAccounts, result }: AuthResponse): Promise<void> => {
+        const { url } = this.#authRequests[id] || {};
+
         await complete(authorizedAccounts);
+        await this.logSecurityEvent('auth_granted', url || 'unknown', `Accounts: ${authorizedAccounts.length}`);
         resolve({ authorizedAccounts, result });
       }
     };
@@ -386,6 +438,8 @@ export default class State {
   };
 
   private signComplete = (id: string, resolve: (result: ResponseSigning) => void, reject: (error: Error) => void): Resolver<ResponseSigning> => {
+    const { url } = this.#signRequests[id] || {};
+
     const complete = (): void => {
       delete this.#signRequests[id];
       this.updateIconSign(true);
@@ -394,14 +448,34 @@ export default class State {
     return {
       reject: (error: Error): void => {
         complete();
+        // Fire-and-forget logging (don't block user)
+        void this.logSecurityEvent('sign_rejected', url || 'unknown', error.message);
         reject(error);
       },
       resolve: (result: ResponseSigning): void => {
         complete();
+        // Fire-and-forget logging (don't block user)
+        void this.logSecurityEvent('sign_approved', url || 'unknown');
         resolve(result);
       }
     };
   };
+
+  // Validate IPFS/IPNS CID format
+  private isValidCid (cid: string): boolean {
+    // CIDv0: starts with Qm, 46 chars total (base58btc)
+    const cidV0Regex = /^Qm[1-9A-HJ-NP-Za-km-z]{44}$/;
+    // CIDv1: starts with b (base32) or z (base58btc), variable length but typically 50+ chars
+    const cidV1Base32Regex = /^b[a-z2-7]{50,}$/i;
+    const cidV1Base58Regex = /^z[1-9A-HJ-NP-Za-km-z]{48,}$/;
+    // IPNS keys: typically start with k (libp2p-key) or 12D3 (peer ID)
+    const ipnsKeyRegex = /^(k[1-9A-HJ-NP-Za-km-z]{50,}|12D3[1-9A-HJ-NP-Za-km-z]{40,})$/;
+
+    return cidV0Regex.test(cid) ||
+           cidV1Base32Regex.test(cid) ||
+           cidV1Base58Regex.test(cid) ||
+           ipnsKeyRegex.test(cid);
+  }
 
   public stripUrl (url: string): string {
     try {
@@ -413,8 +487,15 @@ export default class State {
 
       // For ipfs/ipns which don't have a standard origin, we handle it differently.
       if (parsedUrl.protocol === 'ipfs:' || parsedUrl.protocol === 'ipns:') {
+        const cid = parsedUrl.hostname;
+
+        // Validate CID/IPNS key format to prevent spoofing
+        if (!this.isValidCid(cid)) {
+          throw new Error(`Invalid ${parsedUrl.protocol.slice(0, -1).toUpperCase()} identifier format`);
+        }
+
         // ipfs://<hash> | ipns://<hash>
-        return `${parsedUrl.protocol}//${parsedUrl.hostname}`;
+        return `${parsedUrl.protocol}//${cid}`;
       }
 
       return parsedUrl.origin;
@@ -490,6 +571,9 @@ export default class State {
 
   public async authorizeUrl (url: string, request: RequestAuthorizeTab): Promise<AuthResponse> {
     const idStr = this.stripUrl(url);
+
+    // Rate limiting to prevent authorization request spam
+    this.handleAuthRateLimit(idStr);
 
     // Synchronous check to prevent race conditions - check pending Set first
     assert(!this.#pendingAuthUrls.has(idStr), `The source ${url} has a pending authorization request`);
@@ -653,6 +737,8 @@ export default class State {
     const lastTime = this.#lastRequestTimestamps.get(origin) || 0;
 
     if (now - lastTime < this.#rateLimitInterval) {
+      // Log rate limit hit (fire-and-forget)
+      void this.logSecurityEvent('rate_limit_hit', origin, 'Signing request rate limited');
       throw new Error('Rate limit exceeded. Try again later.');
     }
 
@@ -664,6 +750,27 @@ export default class State {
     }
 
     this.#lastRequestTimestamps.set(origin, now);
+  }
+
+  // Rate limiting for authorization requests to prevent spam
+  private handleAuthRateLimit (origin: string) {
+    const now = Date.now();
+    const lastTime = this.#lastAuthTimestamps.get(origin) || 0;
+
+    if (now - lastTime < this.#authRateLimitInterval) {
+      // Log rate limit hit (fire-and-forget)
+      void this.logSecurityEvent('rate_limit_hit', origin, 'Authorization request rate limited');
+      throw new Error('Too many authorization requests. Please wait a few seconds.');
+    }
+
+    // If we're about to exceed max entries, evict the oldest
+    if (!this.#lastAuthTimestamps.has(origin) && this.#lastAuthTimestamps.size >= this.#maxEntries) {
+      const oldestKey = this.#lastAuthTimestamps.keys().next().value;
+
+      oldestKey && this.#lastAuthTimestamps.delete(oldestKey);
+    }
+
+    this.#lastAuthTimestamps.set(origin, now);
   }
 
   public sign (url: string, request: RequestSign, account: AccountJson): Promise<ResponseSigning> {
