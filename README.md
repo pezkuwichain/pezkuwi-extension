@@ -10,8 +10,8 @@ This extension manages accounts and allows the signing of transactions with thos
 
 ## Installation
 
-- Chrome: Coming soon to Chrome Web Store
-- Firefox: Coming soon to Firefox Add-ons
+- **Chrome / Chromium / Brave / Edge:** [Install from the Chrome Web Store](https://chromewebstore.google.com/detail/pezkuwi%7Bjs%7D-extension/fbnboicjjeebjhgnapneaeccpgjcdibn)
+- **Firefox:** build from source (see [Development](#development)); a Firefox Add-ons listing is coming soon
 
 ## Documentation
 
