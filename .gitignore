@@ -34,3 +34,6 @@ packages/extension/manifest.json
 
 # Diff script generates ff-diff
 ff-diff*.zip
+temp_ff_validate/
+pezkuwi-chrome-*.zip
+pezkuwi-firefox-*.zip

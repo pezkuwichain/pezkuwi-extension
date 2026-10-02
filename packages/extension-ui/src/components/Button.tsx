@@ -104,4 +104,3 @@ export default styled(Button)<ButtonProps>(({ isDanger }) => `
     visibility: visible;
   }
 `);
-

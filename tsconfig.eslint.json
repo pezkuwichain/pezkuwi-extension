@@ -10,7 +10,8 @@
     ".prettierrc.cjs",
     "eslint.config.js",
     "i18next-scanner.config.cjs",
-    "rollup.config.js"
+    "rollup.config.js",
+    "scripts/*.cjs"
   ],
   "exclude": [
     "**/node_modules/**/*"

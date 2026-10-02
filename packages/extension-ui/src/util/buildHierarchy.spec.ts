@@ -7,10 +7,24 @@ import type * as _ from '@pezkuwi/dev-test/globals.d.ts';
 import type { AccountJson, AccountWithChildren } from '@pezkuwi/extension-base/background/types';
 
 import { buildHierarchy } from './buildHierarchy.js';
+import chains from './chains.js';
+
+// Sorting by network goes through the chain list's names, so the hashes have to be
+// real entries in it: made-up hashes resolve to no name and nothing gets sorted.
+// 'Asset Hub' sorts before 'PezkuwiChain'.
+function genesisOf (chain: string): (typeof chains)[number]['genesisHash'] {
+  const found = chains.find((c) => c.chain === chain);
+
+  if (!found) {
+    throw new Error(`${chain} is not in chains.ts`);
+  }
+
+  return found.genesisHash;
+}
 
 const genesisExample = {
-  DICLE: '0x0000000000000000000000000000000000000000000000000000000000000002',
-  PEZKUWI: '0x0000000000000000000000000000000000000000000000000000000000000001'
+  ASSET_HUB: genesisOf('Asset Hub'),
+  PEZKUWI: genesisOf('PezkuwiChain')
 } as const;
 
 const testHierarchy = (accounts: AccountJson[], expected: AccountWithChildren[]): void => {
@@ -69,15 +83,15 @@ describe('Use Account Hierarchy', () => {
 
   it('sorts accounts by network', () => {
     testHierarchy(
-      [{ address: 'b', genesisHash: genesisExample.DICLE }, { address: 'a', genesisHash: genesisExample.PEZKUWI }, { address: 'c', genesisHash: genesisExample.DICLE }],
-      [{ address: 'b', genesisHash: genesisExample.DICLE }, { address: 'c', genesisHash: genesisExample.DICLE }, { address: 'a', genesisHash: genesisExample.PEZKUWI }]
+      [{ address: 'b', genesisHash: genesisExample.ASSET_HUB }, { address: 'a', genesisHash: genesisExample.PEZKUWI }, { address: 'c', genesisHash: genesisExample.ASSET_HUB }],
+      [{ address: 'b', genesisHash: genesisExample.ASSET_HUB }, { address: 'c', genesisHash: genesisExample.ASSET_HUB }, { address: 'a', genesisHash: genesisExample.PEZKUWI }]
     );
   });
 
   it('sorts accounts by network and name', () => {
     testHierarchy(
-      [{ address: 'b', genesisHash: genesisExample.DICLE, name: 'b-last-kusama' }, { address: 'a', genesisHash: genesisExample.PEZKUWI }, { address: 'c', genesisHash: genesisExample.DICLE, name: 'a-first-kusama' }],
-      [{ address: 'c', genesisHash: genesisExample.DICLE, name: 'a-first-kusama' }, { address: 'b', genesisHash: genesisExample.DICLE, name: 'b-last-kusama' }, { address: 'a', genesisHash: genesisExample.PEZKUWI }]
+      [{ address: 'b', genesisHash: genesisExample.ASSET_HUB, name: 'b-last-asset-hub' }, { address: 'a', genesisHash: genesisExample.PEZKUWI }, { address: 'c', genesisHash: genesisExample.ASSET_HUB, name: 'a-first-asset-hub' }],
+      [{ address: 'c', genesisHash: genesisExample.ASSET_HUB, name: 'a-first-asset-hub' }, { address: 'b', genesisHash: genesisExample.ASSET_HUB, name: 'b-last-asset-hub' }, { address: 'a', genesisHash: genesisExample.PEZKUWI }]
     );
   });
 
