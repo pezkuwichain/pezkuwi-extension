@@ -95,6 +95,23 @@ interface SecurityLogEntry {
   details?: string;
 }
 
+/**
+ * Reads the stored security log. Anything that is not a JSON array (a missing key,
+ * or a value written by something else) reads as an empty log rather than as an
+ * untyped value flowing on.
+ */
+function parseSecurityLog (stored: unknown): SecurityLogEntry[] {
+  if (typeof stored !== 'string') {
+    return [];
+  }
+
+  const parsed: unknown = JSON.parse(stored);
+
+  return Array.isArray(parsed)
+    ? parsed as SecurityLogEntry[]
+    : [];
+}
+
 async function extractMetadata (store: MetadataStore): Promise<void> {
   await store.allMap(async (map): Promise<void> => {
     const knownEntries = Object.entries(knownGenesis);
@@ -208,13 +225,13 @@ export default class State {
   private async logSecurityEvent (event: SecurityLogEntry['event'], origin: string, details?: string): Promise<void> {
     try {
       const storageData = await chrome.storage.local.get(SECURITY_LOG_KEY);
-      const logs: SecurityLogEntry[] = JSON.parse(storageData[SECURITY_LOG_KEY] || '[]');
+      const logs = parseSecurityLog(storageData[SECURITY_LOG_KEY]);
 
       logs.push({
-        timestamp: Date.now(),
+        details,
         event,
         origin,
-        details
+        timestamp: Date.now()
       });
 
       // Keep only the last MAX_SECURITY_LOG_ENTRIES entries
@@ -232,7 +249,7 @@ export default class State {
     try {
       const storageData = await chrome.storage.local.get(SECURITY_LOG_KEY);
 
-      return JSON.parse(storageData[SECURITY_LOG_KEY] || '[]');
+      return parseSecurityLog(storageData[SECURITY_LOG_KEY]);
     } catch {
       return [];
     }
@@ -449,13 +466,13 @@ export default class State {
       reject: (error: Error): void => {
         complete();
         // Fire-and-forget logging (don't block user)
-        void this.logSecurityEvent('sign_rejected', url || 'unknown', error.message);
+        this.logSecurityEvent('sign_rejected', url || 'unknown', error.message).catch(console.error);
         reject(error);
       },
       resolve: (result: ResponseSigning): void => {
         complete();
         // Fire-and-forget logging (don't block user)
-        void this.logSecurityEvent('sign_approved', url || 'unknown');
+        this.logSecurityEvent('sign_approved', url || 'unknown').catch(console.error);
         resolve(result);
       }
     };
@@ -738,7 +755,7 @@ export default class State {
 
     if (now - lastTime < this.#rateLimitInterval) {
       // Log rate limit hit (fire-and-forget)
-      void this.logSecurityEvent('rate_limit_hit', origin, 'Signing request rate limited');
+      this.logSecurityEvent('rate_limit_hit', origin, 'Signing request rate limited').catch(console.error);
       throw new Error('Rate limit exceeded. Try again later.');
     }
 
@@ -759,7 +776,7 @@ export default class State {
 
     if (now - lastTime < this.#authRateLimitInterval) {
       // Log rate limit hit (fire-and-forget)
-      void this.logSecurityEvent('rate_limit_hit', origin, 'Authorization request rate limited');
+      this.logSecurityEvent('rate_limit_hit', origin, 'Authorization request rate limited').catch(console.error);
       throw new Error('Too many authorization requests. Please wait a few seconds.');
     }
 

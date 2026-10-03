@@ -3,8 +3,9 @@ on: [pull_request]
 
 jobs:
   pr:
-    continue-on-error: true
     strategy:
+      # Each step reports on its own; one red step must not cancel the others.
+      fail-fast: false
       matrix:
         step: ['lint', 'test', 'build', diff]
     runs-on: ubuntu-latest

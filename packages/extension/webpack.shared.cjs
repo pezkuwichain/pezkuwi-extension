@@ -120,6 +120,12 @@ module.exports = (entry, alias = {}) => ({
       resourceRegExp: /^\.\/locale$/
     }),
     new webpack.DefinePlugin({
+      // @pezkuwi/* packageInfo.js reads import.meta.url, which webpack would bake in as
+      // the absolute file:// path of the machine that built it. That leaks the build
+      // directory into the published extension and makes the Firefox source build
+      // (scripts/diff.sh, and AMO's own review) differ from ours. The value is only
+      // shown in duplicate-version warnings.
+      'import.meta.url': JSON.stringify('file:///pezkuwi-extension/node_modules/'),
       'process.env': {
         EXTENSION_PREFIX: JSON.stringify(process.env.EXTENSION_PREFIX || EXT_NAME),
         NODE_ENV: JSON.stringify('production'),
