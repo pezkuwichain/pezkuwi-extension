@@ -37,3 +37,6 @@ ff-diff*.zip
 temp_ff_validate/
 pezkuwi-chrome-*.zip
 pezkuwi-firefox-*.zip
+
+# output of `yarn diff` (scripts/diff.sh)
+ff-diff/

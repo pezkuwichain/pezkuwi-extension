@@ -4,6 +4,10 @@
 import baseConfig from '@pezkuwi/dev/config/eslint';
 
 export default [
+  {
+    // output of `yarn diff` (scripts/diff.sh)
+    ignores: ['ff-diff/**']
+  },
   ...baseConfig,
   {
     rules: {
