@@ -1,0 +1,5 @@
+extension-base
+extension-chains
+extension-compat-metamask
+extension-dapp
+extension-inject

@@ -21,3 +21,14 @@ jobs:
         corepack enable
         yarn install --immutable
         yarn ${{ matrix.step }}
+    # `yarn lint` runs eslint --fix and `yarn build` rewrites packageInfo.ts and
+    # the i18n catalogue, so both pass on a tree they changed. The committed
+    # tree must already be what they produce.
+    - name: tree unchanged
+      run: git diff --exit-code --stat
+    # The package.json each published package's build/ holds is what npm
+    # receives: entry points must exist, no ./build/ or ./cjs/cjs/ paths, no
+    # workspace: ranges (extension-base 0.62.19 went out with workspace:*).
+    - name: check built manifests
+      if: matrix.step == 'build'
+      run: python3 scripts/check-built-manifests.py . $(cat scripts/published-packages.txt)
