@@ -18,18 +18,18 @@
     "./packageDetect.cjs"
   ],
   "type": "module",
-  "version": "0.62.20",
+  "version": "0.62.27",
   "main": "index.js",
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
-    "@pezkuwi/extension-inject": "workspace:*",
-    "@pezkuwi/types": "^16.5.3",
-    "@pezkuwi/util": "^14.0.5",
+    "@pezkuwi/extension-inject": "0.62.27",
+    "@pezkuwi/types": "^16.5.37",
+    "@pezkuwi/util": "^14.0.26",
     "tslib": "^2.8.1",
     "web3": "^4.7.0"
   },
   "peerDependencies": {
-    "@pezkuwi/api": "*",
-    "@pezkuwi/util": "*"
+    "@pezkuwi/api": "^16.5.37",
+    "@pezkuwi/util": "^14.0.26"
   }
 }
