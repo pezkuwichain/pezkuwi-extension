@@ -30,8 +30,8 @@
     "@pezkuwi/dev-test": "^0.84.3"
   },
   "peerDependencies": {
-    "@pezkuwi/api": "^16.5.37",
-    "@pezkuwi/util": "^14.0.26",
-    "@pezkuwi/util-crypto": "^14.0.26"
+    "@pezkuwi/api": "*",
+    "@pezkuwi/util": "*",
+    "@pezkuwi/util-crypto": "*"
   }
 }

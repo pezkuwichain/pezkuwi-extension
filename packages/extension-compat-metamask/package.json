@@ -29,7 +29,7 @@
     "web3": "^4.7.0"
   },
   "peerDependencies": {
-    "@pezkuwi/api": "^16.5.37",
-    "@pezkuwi/util": "^14.0.26"
+    "@pezkuwi/api": "*",
+    "@pezkuwi/util": "*"
   }
 }

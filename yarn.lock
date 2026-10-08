@@ -1238,8 +1238,8 @@ __metadata:
     "@pezkuwi/util-crypto": "npm:^14.0.26"
     tslib: "npm:^2.8.1"
   peerDependencies:
-    "@pezkuwi/api": ^16.5.37
-    "@pezkuwi/types": ^16.5.37
+    "@pezkuwi/api": "*"
+    "@pezkuwi/types": "*"
   languageName: unknown
   linkType: soft
 
@@ -1254,8 +1254,8 @@ __metadata:
     tslib: "npm:^2.8.1"
     web3: "npm:^4.7.0"
   peerDependencies:
-    "@pezkuwi/api": ^16.5.37
-    "@pezkuwi/util": ^14.0.26
+    "@pezkuwi/api": "*"
+    "@pezkuwi/util": "*"
   languageName: unknown
   linkType: soft
 
@@ -1269,9 +1269,9 @@ __metadata:
     "@pezkuwi/util-crypto": "npm:^14.0.26"
     tslib: "npm:^2.8.1"
   peerDependencies:
-    "@pezkuwi/api": ^16.5.37
-    "@pezkuwi/util": ^14.0.26
-    "@pezkuwi/util-crypto": ^14.0.26
+    "@pezkuwi/api": "*"
+    "@pezkuwi/util": "*"
+    "@pezkuwi/util-crypto": "*"
   languageName: unknown
   linkType: soft
 
@@ -1290,8 +1290,8 @@ __metadata:
     "@types/firefox-webext-browser": "npm:^111.0.5"
     tslib: "npm:^2.8.1"
   peerDependencies:
-    "@pezkuwi/api": ^16.5.37
-    "@pezkuwi/util": ^14.0.26
+    "@pezkuwi/api": "*"
+    "@pezkuwi/util": "*"
   languageName: unknown
   linkType: soft
 
