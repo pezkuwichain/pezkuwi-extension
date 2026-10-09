@@ -36,8 +36,8 @@ function ExportAll ({ className }: Props): React.ReactElement<Props> {
     (password: string) => {
       setPass(password);
       setError('');
-    }
-    , []);
+    },
+    []);
 
   const _onExportAllButtonClick = useCallback(
     (): void => {
@@ -47,7 +47,7 @@ function ExportAll ({ className }: Props): React.ReactElement<Props> {
         .then(({ exportedJson }) => {
           const blob = new Blob([JSON.stringify(exportedJson)], { type: 'application/json; charset=utf-8' });
 
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           fileSaver.saveAs(blob, `batch_exported_account_${Date.now()}.json`);
 
           onAction('/');

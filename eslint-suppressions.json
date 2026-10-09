@@ -1,0 +1,106 @@
+{
+  "packages/extension-ui/src/Popup/Accounts/Account.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/Accounts/index.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/CreateAccount/index.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/Derive/DerivationPath.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/Derive/SelectParent.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 3
+    }
+  },
+  "packages/extension-ui/src/Popup/ImportLedger.tsx": {
+    "react-hooks/refs": {
+      "count": 3
+    }
+  },
+  "packages/extension-ui/src/Popup/ImportSeed/index.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/Signing/Extrinsic.tsx": {
+    "react-hooks/refs": {
+      "count": 3
+    }
+  },
+  "packages/extension-ui/src/Popup/Signing/Request/SignArea.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    },
+    "react-hooks/static-components": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/Signing/Request/index.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/Signing/index.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/Popup/index.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 2
+    }
+  },
+  "packages/extension-ui/src/components/Address.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 3
+    },
+    "react-hooks/static-components": {
+      "count": 2
+    }
+  },
+  "packages/extension-ui/src/components/ErrorBoundary.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 2
+    }
+  },
+  "packages/extension-ui/src/components/ValidatedInput.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/hooks/useIsMounted.ts": {
+    "react-hooks/refs": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/hooks/useLedger.ts": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    },
+    "react-hooks/set-state-in-render": {
+      "count": 4
+    }
+  },
+  "packages/extension-ui/src/hooks/useMetadata.ts": {
+    "react-hooks/set-state-in-effect": {
+      "count": 1
+    }
+  },
+  "packages/extension-ui/src/partials/AccountSelection.tsx": {
+    "react-hooks/set-state-in-effect": {
+      "count": 2
+    }
+  }
+}

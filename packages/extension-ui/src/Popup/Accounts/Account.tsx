@@ -45,7 +45,7 @@ function Account ({ address, className, genesisHash, isExternal, isHardware, isH
       ? selectedAccounts.filter((account) => account !== address)
       : [...selectedAccounts, address];
 
-    setSelectedAccounts && setSelectedAccounts(newList);
+    setSelectedAccounts?.(newList);
   }, [address, selectedAccounts, setSelectedAccounts]);
 
   const _onChangeGenesis = useCallback(
@@ -57,7 +57,7 @@ function Account ({ address, className, genesisHash, isExternal, isHardware, isH
   );
 
   const _toggleEdit = useCallback(
-    (): void => setEditing(({ toggleActions }) => ({ isEditing: !isEditing, toggleActions: ++toggleActions })),
+    (): void => setEditing(({ toggleActions }) => ({ isEditing: !isEditing, toggleActions: toggleActions + 1 })),
     [isEditing]
   );
 

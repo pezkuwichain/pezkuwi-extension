@@ -11,13 +11,13 @@ export default [
   ...baseConfig,
   {
     rules: {
-      'import/extensions': 'off'
+      'import-x/extensions': 'off'
     }
   },
   {
     files: ['**/*.spec.ts', '**/*.spec.tsx'],
     rules: {
-      'deprecation/deprecation': 'off'
+      '@typescript-eslint/no-deprecated': 'off'
     }
   }
 ];

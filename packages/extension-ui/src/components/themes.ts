@@ -14,7 +14,7 @@ export function chooseTheme (): Theme {
       : 'light';
   }
 
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+  return window.matchMedia?.('(prefers-color-scheme: light)').matches
     ? 'light'
     : 'dark';
 }

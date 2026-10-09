@@ -5,7 +5,7 @@ import '@pezkuwi/extension-mocks/chrome';
 
 import type { ReactWrapper } from 'enzyme';
 import type * as _ from '@pezkuwi/dev-test/globals.d.ts';
-import type { AccountJson, ResponseDeriveValidate } from '@pezkuwi/extension-base/background/types';
+import type { AccountJson } from '@pezkuwi/extension-base/background/types';
 
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import enzyme from 'enzyme';
@@ -32,7 +32,7 @@ const { configure, mount } = enzyme;
 // For this file, there are a lot of them
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 configure({ adapter: new Adapter() });
 
 const parentPassword = 'pass';
@@ -57,7 +57,7 @@ describe('Derive', () => {
   }> => {
     const onActionStub = jest.fn();
 
-    const wrapper = mount(
+    const wrapper = mount<React.Component>(
       <MemoryRouter initialEntries={ [`/account/derive/${accounts[account].address}`] }>
         <ActionContext.Provider value={onActionStub}>
           <AccountContext.Provider
@@ -110,7 +110,7 @@ describe('Derive', () => {
         throw new Error('wrong suri');
       }
 
-      return { address: derivedAddress, suri: defaultDerivation } as ResponseDeriveValidate;
+      return { address: derivedAddress, suri: defaultDerivation };
     });
 
     it('Button is disabled and password field visible, path field is hidden', () => {
@@ -216,7 +216,7 @@ describe('Derive', () => {
 
       expect(button.prop('disabled')).toBe(true);
       expect(wrapper.find('.warning-message')).toHaveLength(1);
-      // eslint-disable-next-line quotes
+      // eslint-disable-next-line @stylistic/quotes
       expect(wrapper.find('.warning-message').first().text()).toEqual("`///password` not supported for derivation");
     });
 

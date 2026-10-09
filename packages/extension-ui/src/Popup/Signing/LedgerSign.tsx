@@ -1,7 +1,7 @@
 // Copyright 2019-2026 @pezkuwi/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 import type { Chain } from '@pezkuwi/extension-chains/types';
 import type { Ledger, LedgerGeneric } from '@pezkuwi/hw-ledger';

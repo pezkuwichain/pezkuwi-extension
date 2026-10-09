@@ -3,7 +3,7 @@
 
 // This is to ensure the legacy `class Ledger` doesn't throw linting errors.
 //
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 import type { Network } from '@pezkuwi/networks/types';
 import type { HexString } from '@pezkuwi/util/types';
@@ -50,7 +50,7 @@ function getState (): StateBase {
 }
 
 function retrieveLedger (genesis: string): LedgerGeneric | Ledger {
-  let ledger: LedgerGeneric | Ledger | null = null;
+  let ledger: LedgerGeneric | Ledger;
 
   const currApp = settings.get().ledgerApp;
 
@@ -63,10 +63,6 @@ function retrieveLedger (genesis: string): LedgerGeneric | Ledger {
   assert(def, 'There is no known Ledger app available for this chain');
 
   assert(def.slip44, 'Slip44 is not available for this network, please report an issue to update this chains slip44');
-
-  // All chains use the `slip44` from polkadot in their derivation path in ledger.
-  // This interface is specific to the underlying PolkadotGenericApp.
-  ledger = new LedgerGeneric('webusb', def.network, knownLedger['polkadot']);
 
   if (currApp === 'generic') {
     // All chains use the `slip44` from polkadot in their derivation path in ledger.

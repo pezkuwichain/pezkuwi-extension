@@ -27,7 +27,7 @@ const { configure, mount } = enzyme;
 //   ...jest.requireActual('../messaging')
 // }));
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 configure({ adapter: new Adapter() });
 
 describe('Export component', () => {

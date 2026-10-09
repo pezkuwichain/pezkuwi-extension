@@ -7,7 +7,6 @@ import type { ExtDef } from '@pezkuwi/types/extrinsic/signedExtensions/types';
 import type { HexString } from '@pezkuwi/util/types';
 import type { KeypairType } from '@pezkuwi/util-crypto/types';
 
-// eslint-disable-next-line no-undef
 type This = typeof globalThis;
 
 export type Unsubcall = () => void;
@@ -80,7 +79,7 @@ export interface InjectedMetadata {
   provide: (definition: MetadataDef) => Promise<boolean>;
 }
 
-export type ProviderList = Record<string, ProviderMeta>
+export type ProviderList = Record<string, ProviderMeta>;
 
 export interface InjectedProvider extends ProviderInterface {
   listProviders: () => Promise<ProviderList>;

@@ -38,7 +38,7 @@ const { configure, mount } = enzyme;
 //   ...jest.requireActual('../MetadataCache')
 // }));
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 configure({ adapter: new Adapter() });
 
 interface AccountTestJson extends AccountJson {
@@ -121,7 +121,7 @@ const mountComponent = async (addressComponentProps: AddressComponentProps, cont
   const actionStub = jest.fn();
   const { actions = actionStub } = addressComponentProps;
 
-  const wrapper = mount(
+  const wrapper = mount<React.Component>(
     <AccountContext.Provider
       value={{
         accounts: contextAccounts,

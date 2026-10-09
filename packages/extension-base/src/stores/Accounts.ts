@@ -15,10 +15,13 @@ export default class AccountsStore extends BaseStore<KeyringJson> implements Key
     );
   }
 
+  // KeyringStore.set returns void and the keyring does not wait on it;
+  // BaseStore.set handles its own failure, so this promise never rejects.
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   public override async set (key: string, value: KeyringJson, update?: () => void): Promise<void> {
     // shortcut, don't save testing accounts in extension storage
-    if (key.startsWith('account:') && value.meta && value.meta.isTesting) {
-      update && update();
+    if (key.startsWith('account:') && value.meta?.isTesting) {
+      update?.();
 
       return;
     }

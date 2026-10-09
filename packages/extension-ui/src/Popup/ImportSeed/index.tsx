@@ -36,7 +36,7 @@ function ImportSeed (): React.ReactElement {
 
   useEffect((): void => {
     setType(
-      chain && chain.definition.chainType === 'ethereum'
+      chain?.definition.chainType === 'ethereum'
         ? 'ethereum'
         : DEFAULT_TYPE
     );

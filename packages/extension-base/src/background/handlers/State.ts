@@ -30,7 +30,7 @@ interface AuthRequest extends Resolver<AuthResponse> {
   url: string;
 }
 
-export type AuthorizedAccountsDiff = [url: string, authorizedAccounts: AuthUrlInfo['authorizedAccounts']][]
+export type AuthorizedAccountsDiff = [url: string, authorizedAccounts: AuthUrlInfo['authorizedAccounts']][];
 
 interface MetaRequest extends Resolver<boolean> {
   id: string;
@@ -50,7 +50,7 @@ type Providers = Record<string, {
   // The provider is not running at init, calling this will instantiate the
   // provider.
   start: () => ProviderInterface;
-}>
+}>;
 
 interface SignRequest extends Resolver<ResponseSigning> {
   account: AccountJson;
@@ -80,7 +80,7 @@ const NORMAL_WINDOW_OPTS: chrome.windows.CreateData = {
 export enum NotificationOptions {
   None,
   Normal,
-  PopUp,
+  PopUp
 }
 
 const AUTH_URLS_KEY = 'authUrls';
@@ -518,7 +518,7 @@ export default class State {
       return parsedUrl.origin;
     } catch (e) {
       console.error(e);
-      throw new Error('Invalid URL');
+      throw new Error('Invalid URL', { cause: e });
     }
   }
 
@@ -796,7 +796,7 @@ export default class State {
     try {
       this.handleSignRequest(url);
     } catch (error) {
-      return Promise.reject(error);
+      return Promise.reject(error instanceof Error ? error : new Error(String(error)));
     }
 
     return new Promise((resolve, reject): void => {

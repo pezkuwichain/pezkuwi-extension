@@ -27,7 +27,7 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@pezkuwi/dev": "^0.84.3",
+    "@pezkuwi/dev": "^0.86.3",
     "browser-resolve": "^2.0.0",
     "buffer": "^6.0.3",
     "copy-webpack-plugin": "^11.0.0",

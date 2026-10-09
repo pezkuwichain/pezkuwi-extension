@@ -20,7 +20,7 @@ interface Props {
 export default function TextAreaWithLabel ({ className, isError, isFocused, isReadOnly, label, onChange, rowsCount, value }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>): void => {
-      onChange && onChange(value);
+      onChange?.(value);
     },
     [onChange]
   );

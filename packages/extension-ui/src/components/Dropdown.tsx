@@ -29,7 +29,7 @@ interface Props {
 function Dropdown ({ className, defaultValue, isDisabled, isFocussed, label, onBlur, onChange, options, value }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
-      onChange && onChange(value.trim()),
+      onChange?.(value.trim()),
     [onChange]
   );
 

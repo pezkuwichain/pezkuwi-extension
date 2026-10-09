@@ -22,7 +22,7 @@ const expanded = new Map<string, Chain>();
 export function metadataExpand (definition: MetadataDef, isPartial = false): Chain {
   const cached = expanded.get(definition.genesisHash);
 
-  if (cached && cached.specVersion === definition.specVersion) {
+  if (cached?.specVersion === definition.specVersion) {
     return cached;
   }
 
@@ -33,6 +33,10 @@ export function metadataExpand (definition: MetadataDef, isPartial = false): Cha
     registry.register(types);
   }
 
+  // Needed in this package's own build, where the type augmentation is not
+  // loaded and createType returns a plain Codec; the repository-wide lint sees
+  // it augmented.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   registry.setChainProperties(registry.createType('ChainProperties', {
     ss58Format,
     tokenDecimals,

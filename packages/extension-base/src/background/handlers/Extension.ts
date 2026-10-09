@@ -9,8 +9,8 @@ import type { Registry, SignerPayloadJSON, SignerPayloadRaw } from '@pezkuwi/typ
 import type { SubjectInfo } from '@pezkuwi/ui-keyring/observable/types';
 import type { KeypairType } from '@pezkuwi/util-crypto/types';
 import type { AccountJson, AllowedPath, AuthorizeRequest, MessageTypes, MetadataRequest, RequestAccountBatchExport, RequestAccountChangePassword, RequestAccountCreateExternal, RequestAccountCreateHardware, RequestAccountCreateSuri, RequestAccountEdit, RequestAccountExport, RequestAccountForget, RequestAccountShow, RequestAccountTie, RequestAccountValidate, RequestActiveTabsUrlUpdate, RequestAuthorizeApprove, RequestBatchRestore, RequestDeriveCreate, RequestDeriveValidate, RequestJsonRestore, RequestMetadataApprove, RequestMetadataReject, RequestSeedCreate, RequestSeedValidate, RequestSigningApprovePassword, RequestSigningApproveSignature, RequestSigningCancel, RequestSigningIsLocked, RequestTypes, RequestUpdateAuthorizedAccounts, ResponseAccountExport, ResponseAccountsExport, ResponseAuthorizeList, ResponseDeriveValidate, ResponseJsonGetAccountInfo, ResponseSeedCreate, ResponseSeedValidate, ResponseSigningIsLocked, ResponseType, SigningRequest } from '../types.js';
-import type { AuthorizedAccountsDiff } from './State.js';
 import type State from './State.js';
+import type { AuthorizedAccountsDiff } from './State.js';
 
 import { ALLOWED_PATH, PASSWORD_EXPIRY_MS } from '@pezkuwi/extension-base/defaults';
 import { metadataExpand } from '@pezkuwi/extension-chains';
@@ -296,7 +296,7 @@ export default class Extension {
     try {
       keyring.restoreAccount(file, password);
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw new Error((error as Error).message, { cause: error });
     }
   }
 
@@ -304,7 +304,7 @@ export default class Extension {
     try {
       keyring.restoreAccounts(file, password);
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw new Error((error as Error).message, { cause: error });
     }
   }
 
@@ -320,7 +320,7 @@ export default class Extension {
       } as ResponseJsonGetAccountInfo;
     } catch (e) {
       console.error(e);
-      throw new Error((e as Error).message);
+      throw new Error((e as Error).message, { cause: e });
     }
   }
 
@@ -570,7 +570,6 @@ export default class Extension {
   }
 
   // Weird thought, the eslint override is not needed in Tabs
-  // eslint-disable-next-line @typescript-eslint/require-await
   public async handle<TMessageType extends MessageTypes> (id: string, type: TMessageType, request: RequestTypes[TMessageType], port?: chrome.runtime.Port): Promise<ResponseType<TMessageType>> {
     switch (type) {
       case 'pri(authorize.approve)':

@@ -40,7 +40,7 @@ function AccountNamePasswordCreation ({ buttonLabel, isBusy, onBackClick, onCrea
 
   const _onPasswordChange = useCallback(
     (password: string | null) => {
-      onPasswordChange && onPasswordChange(password || '');
+      onPasswordChange?.(password || '');
       setPassword(password);
     },
     [onPasswordChange]
@@ -50,7 +50,7 @@ function AccountNamePasswordCreation ({ buttonLabel, isBusy, onBackClick, onCrea
     () => {
       _onNameChange(null);
       setPassword(null);
-      onBackClick && onBackClick();
+      onBackClick?.();
     },
     [_onNameChange, onBackClick]
   );

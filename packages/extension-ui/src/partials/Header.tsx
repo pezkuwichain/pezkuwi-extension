@@ -39,8 +39,8 @@ function Header ({ children, className = '', onFilter, showAdd, showBackArrow, s
   const addMenuRef = useRef<HTMLDivElement>(null);
   const setIconRef = useRef(null);
   const setMenuRef = useRef<HTMLDivElement>(null);
-  const isConnected = useMemo(() => connectedTabsUrl.length >= 1
-    , [connectedTabsUrl]);
+  const isConnected = useMemo(() => connectedTabsUrl.length >= 1,
+    [connectedTabsUrl]);
   const onAction = useContext(ActionContext);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ function Header ({ children, className = '', onFilter, showAdd, showBackArrow, s
   const _onChangeFilter = useCallback(
     (filter: string) => {
       setFilter(filter);
-      onFilter && onFilter(filter);
+      onFilter?.(filter);
     },
     [onFilter]
   );
@@ -91,8 +91,8 @@ function Header ({ children, className = '', onFilter, showAdd, showBackArrow, s
   );
 
   const _onBackArrowClick = useCallback(
-    () => onAction('../index.js')
-    , [onAction]);
+    () => onAction('../index.js'),
+    [onAction]);
 
   return (
     <div className={`${className} ${smallMargin ? 'smallMargin' : ''}`}>

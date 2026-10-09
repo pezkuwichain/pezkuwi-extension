@@ -41,7 +41,7 @@ const { configure, mount } = enzyme;
 // For this file, there are a lot of them
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 configure({ adapter: new Adapter() });
 
 describe('Signing requests', () => {
@@ -345,7 +345,6 @@ describe('Signing requests', () => {
       wrapper.find('FontAwesomeIcon.arrowRight').simulate('click');
       await act(flushAllPromises);
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       act(() => {
         emitter.emit('request', [signRequests[0]]);
       });

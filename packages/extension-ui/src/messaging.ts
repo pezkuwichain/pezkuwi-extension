@@ -49,8 +49,7 @@ function onPortMessageHandler (data: Message['data']): void {
   }
 
   if (data.subscription) {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    (handler.subscriber as Function)(data.subscription);
+    handler.subscriber?.(data.subscription);
   } else if (data.error) {
     handler.reject(new Error(data.error));
   } else {
@@ -68,9 +67,10 @@ const portConfig = {
   portName: PORT_EXTENSION
 };
 
-function sendMessage<TMessageType extends MessageTypesWithNullRequest>(message: TMessageType): Promise<ResponseTypes[TMessageType]>;
-function sendMessage<TMessageType extends MessageTypesWithNoSubscriptions>(message: TMessageType, request: RequestTypes[TMessageType]): Promise<ResponseTypes[TMessageType]>;
-function sendMessage<TMessageType extends MessageTypesWithSubscriptions>(message: TMessageType, request: RequestTypes[TMessageType], subscriber: (data: SubscriptionMessageTypes[TMessageType]) => void): Promise<ResponseTypes[TMessageType]>;
+function sendMessage<TMessageType extends MessageTypesWithNullRequest> (message: TMessageType): Promise<ResponseTypes[TMessageType]>;
+function sendMessage<TMessageType extends MessageTypesWithNoSubscriptions> (message: TMessageType, request: RequestTypes[TMessageType]): Promise<ResponseTypes[TMessageType]>;
+function sendMessage<TMessageType extends MessageTypesWithSubscriptions> (message: TMessageType, request: RequestTypes[TMessageType], subscriber: (data: SubscriptionMessageTypes[TMessageType]) => void): Promise<ResponseTypes[TMessageType]>;
+
 function sendMessage<TMessageType extends MessageTypes> (message: TMessageType, request?: RequestTypes[TMessageType], subscriber?: (data: unknown) => void): Promise<ResponseTypes[TMessageType]> {
   return new Promise((resolve, reject): void => {
     const id = getId();
@@ -82,7 +82,7 @@ function sendMessage<TMessageType extends MessageTypes> (message: TMessageType, 
       port = connectedPort;
     }).catch((error) => {
       console.error(`Failed to send message: ${(error as Error).message}`);
-      reject(error);
+      reject(error instanceof Error ? error : new Error(String(error)));
     });
   });
 }
