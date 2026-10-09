@@ -30,12 +30,12 @@ function AccountSelection ({ className, origin, showHidden = false, url, withWar
   const allDisplayedAddresses = useMemo(
     () => showHidden
       ? accounts.map(({ address }) => address)
-      : allVisibleAccounts.map(({ address }) => address)
-    , [accounts, allVisibleAccounts, showHidden]
+      : allVisibleAccounts.map(({ address }) => address),
+    [accounts, allVisibleAccounts, showHidden]
   );
   const areAllAccountsSelected = useMemo(
-    () => selectedAccounts.length === allDisplayedAddresses.length
-    , [allDisplayedAddresses.length, selectedAccounts.length]
+    () => selectedAccounts.length === allDisplayedAddresses.length,
+    [allDisplayedAddresses.length, selectedAccounts.length]
   );
 
   useEffect(() => {
@@ -54,12 +54,12 @@ function AccountSelection ({ className, origin, showHidden = false, url, withWar
 
   const _onSelectAllToggle = useCallback(() => {
     if (areAllAccountsSelected) {
-      setSelectedAccounts && setSelectedAccounts([]);
+      setSelectedAccounts?.([]);
 
       return;
     }
 
-    setSelectedAccounts && setSelectedAccounts(allDisplayedAddresses);
+    setSelectedAccounts?.(allDisplayedAddresses);
   }, [allDisplayedAddresses, areAllAccountsSelected, setSelectedAccounts]
   );
 

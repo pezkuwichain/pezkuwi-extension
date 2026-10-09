@@ -30,7 +30,7 @@ function Request ({ authId, className, request: { origin }, url }: Props): React
       .filter(({ isDefaultAuthSelected }) => !!isDefaultAuthSelected)
       .map(({ address }) => address);
 
-    setSelectedAccounts && setSelectedAccounts(defaultAccountSelection);
+    setSelectedAccounts?.(defaultAccountSelection);
   }, [accounts, setSelectedAccounts]);
 
   const _onApprove = useCallback(

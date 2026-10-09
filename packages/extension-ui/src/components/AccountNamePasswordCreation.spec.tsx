@@ -20,7 +20,7 @@ import { AccountNamePasswordCreation, Input, InputWithLabel, NextStepButton } fr
 
 const { configure, mount } = enzyme;
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 configure({ adapter: new Adapter() });
 
 const account = {

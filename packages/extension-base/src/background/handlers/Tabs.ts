@@ -9,8 +9,8 @@ import type { JsonRpcResponse } from '@pezkuwi/rpc-provider/types';
 import type { SignerPayloadJSON, SignerPayloadRaw } from '@pezkuwi/types/types';
 import type { SubjectInfo } from '@pezkuwi/ui-keyring/observable/types';
 import type { AuthUrlInfo, MessageTypes, RequestAccountList, RequestAccountUnsubscribe, RequestAuthorizeTab, RequestRpcSend, RequestRpcSubscribe, RequestRpcUnsubscribe, RequestTypes, ResponseRpcListProviders, ResponseSigning, ResponseTypes, SubscriptionMessageTypes } from '../types.js';
-import type { AuthResponse } from './State.js';
 import type State from './State.js';
+import type { AuthResponse } from './State.js';
 
 import { combineLatest, type Subscription } from 'rxjs';
 
@@ -113,7 +113,7 @@ export default class Tabs {
   private accountsUnsubscribe (url: string, { id }: RequestAccountUnsubscribe): boolean {
     const sub = this.#accountSubs[id];
 
-    if (!sub || sub.url !== url) {
+    if (sub?.url !== url) {
       return false;
     }
 

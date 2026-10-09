@@ -16,7 +16,7 @@ import Settings from './MenuSettings.js';
 
 const { configure, mount } = enzyme;
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 configure({ adapter: new Adapter() });
 
 describe('Header component', () => {

@@ -2,7 +2,7 @@
   "extends": "@pezkuwi/dev/config/tsconfig.json",
 	"compilerOptions": {
 		"composite": true,
-    "target": "ES2020",
+    "target": "ES2022",
     /* FIXME Dropzone is problematic with nodenext resolution */
     "module": "ESNext",
     "moduleResolution": "Bundler",

@@ -27,7 +27,7 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@pezkuwi/dev-test": "^0.84.3",
+    "@pezkuwi/dev-test": "^0.86.3",
     "@types/chrome": "^0.0.254",
     "@types/firefox-webext-browser": "^111.0.5"
   },

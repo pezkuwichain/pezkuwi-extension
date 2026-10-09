@@ -15,7 +15,7 @@ import { styled } from '../styled.js';
 
 const MIN_LENGTH = 6;
 
-interface Props extends RouteComponentProps<{address: string}> {
+interface Props extends RouteComponentProps<{ address: string }> {
   className?: string;
 }
 
@@ -35,8 +35,8 @@ function Export ({ className, match: { params: { address } } }: Props): React.Re
     (password: string) => {
       setPass(password);
       setError('');
-    }
-    , []);
+    },
+    []);
 
   const _onExportButtonClick = useCallback(
     (): void => {
@@ -46,7 +46,7 @@ function Export ({ className, match: { params: { address } } }: Props): React.Re
         .then(({ exportedJson }) => {
           const blob = new Blob([JSON.stringify(exportedJson)], { type: 'application/json; charset=utf-8' });
 
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           fileSaver.saveAs(blob, `${address}.json`);
 
           onAction('/');

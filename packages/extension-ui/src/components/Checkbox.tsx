@@ -25,12 +25,12 @@ function Checkbox ({ checked, className, indeterminate, label, onChange, onClick
   }, [indeterminate]);
 
   const _onChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => onChange && onChange(event.target.checked),
+    (event: React.ChangeEvent<HTMLInputElement>) => onChange?.(event.target.checked),
     [onChange]
   );
 
   const _onClick = useCallback(
-    () => onClick && onClick(),
+    () => onClick?.(),
     [onClick]
   );
 

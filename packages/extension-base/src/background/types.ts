@@ -1,8 +1,6 @@
 // Copyright 2019-2026 @pezkuwi/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/* eslint-disable no-use-before-define */
-
 import type { InjectedAccount, InjectedMetadataKnown, MetadataDef, ProviderList, ProviderMeta } from '@pezkuwi/extension-inject/types';
 import type { KeyringPair, KeyringPair$Json, KeyringPair$Meta } from '@pezkuwi/keyring/types';
 import type { JsonRpcResponse } from '@pezkuwi/rpc-provider/types';
@@ -45,7 +43,7 @@ export interface AccountJson extends KeyringPair$Meta {
 
 export type AccountWithChildren = AccountJson & {
   children?: AccountWithChildren[];
-}
+};
 
 export interface AccountsContext {
   accounts: AccountJson[];
@@ -74,7 +72,7 @@ export interface SigningRequest {
   url: string;
 }
 
-export type ConnectedTabsUrlResponse = string[]
+export type ConnectedTabsUrlResponse = string[];
 
 // [MessageType]: [RequestType, ResponseType, SubscriptionMessageType?]
 export interface RequestSignatures {
@@ -148,7 +146,7 @@ export type RequestTypes = {
   [MessageType in keyof RequestSignatures]: RequestSignatures[MessageType][0]
 };
 
-export type MessageTypesWithNullRequest = NullKeys<RequestTypes>
+export type MessageTypesWithNullRequest = NullKeys<RequestTypes>;
 
 export interface TransportRequestMessage<TMessageType extends MessageTypes> {
   id: string;
@@ -396,7 +394,7 @@ export type SubscriptionMessageTypes = NoUndefinedValues<{
 }>;
 
 export type MessageTypesWithSubscriptions = keyof SubscriptionMessageTypes;
-export type MessageTypesWithNoSubscriptions = Exclude<MessageTypes, keyof SubscriptionMessageTypes>
+export type MessageTypesWithNoSubscriptions = Exclude<MessageTypes, keyof SubscriptionMessageTypes>;
 
 export interface RequestSign {
   readonly payload: SignerPayloadJSON | SignerPayloadRaw;

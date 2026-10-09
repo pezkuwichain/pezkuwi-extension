@@ -4,8 +4,8 @@
 // We _could_ reformat, but just keep it as-is, since this is actually
 // externally generated and not really user-editable
 
-/* eslint-disable react/jsx-sort-props */
-/* eslint-disable react/jsx-max-props-per-line */
+/* eslint-disable @stylistic/jsx-sort-props */
+/* eslint-disable @stylistic/jsx-max-props-per-line */
 
 import React from 'react';
 

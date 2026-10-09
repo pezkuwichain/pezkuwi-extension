@@ -25,7 +25,7 @@ function InputFilter ({ className, onChange, placeholder, value, withReset = fal
 
   const onResetFilter = useCallback(() => {
     onChange('');
-    inputRef?.current && inputRef.current.select();
+    inputRef?.current?.select();
   }, [onChange]);
 
   return (

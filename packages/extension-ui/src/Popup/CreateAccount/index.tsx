@@ -38,12 +38,11 @@ function CreateAccount ({ className }: Props): React.ReactElement {
         setSeed(seed);
       })
       .catch(console.error);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect((): void => {
     if (seed) {
-      const type = chain && chain.definition.chainType === 'ethereum'
+      const type = chain?.definition.chainType === 'ethereum'
         ? 'ethereum'
         : DEFAULT_TYPE;
 

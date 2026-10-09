@@ -49,7 +49,7 @@ interface QrScanAddressProps {
 //   ...jest.requireActual('../messaging')
 // }));
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 configure({ adapter: new Adapter() });
 
 const typeName = async (wrapper: ReactWrapper, value: string) => {
@@ -77,7 +77,6 @@ describe('ImportQr component', () => {
       </MemoryRouter>
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     act(() => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       (wrapper.find('QrScanAddress').first().prop('onScan') as unknown as QrScanAddressProps['onScan'])(mockedAccount);

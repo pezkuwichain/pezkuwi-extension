@@ -56,7 +56,7 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@pezkuwi/dev-test": "^0.84.3",
+    "@pezkuwi/dev-test": "^0.86.3",
     "@pezkuwi/extension-mocks": "0.62.27",
     "@types/enzyme": "^3.10.18",
     "@types/enzyme-adapter-react-16": "^1.0.9",

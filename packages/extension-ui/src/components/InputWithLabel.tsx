@@ -48,7 +48,7 @@ function InputWithLabel ({ className, defaultValue, disabled, isError, isFocused
 
   const _onChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLInputElement>): void => {
-      onChange && onChange(value);
+      onChange?.(value);
     },
     [onChange]
   );
@@ -67,7 +67,7 @@ function InputWithLabel ({ className, defaultValue, disabled, isError, isFocused
         onBlur={onBlur}
         onChange={_onChange}
         onFocus={onFocus}
-        onKeyPress={_checkKey}
+        onKeyDown={_checkKey}
         placeholder={placeholder}
         readOnly={isReadOnly}
         spellCheck={false}

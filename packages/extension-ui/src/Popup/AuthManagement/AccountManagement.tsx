@@ -15,7 +15,7 @@ interface Props {
 }
 
 function AccountManagement ({ className }: Props): React.ReactElement<Props> {
-  const { url } = useParams<{url: string}>();
+  const { url } = useParams<{ url: string }>();
   const decodedUrl = decodeURIComponent(url);
   const { selectedAccounts = [], setSelectedAccounts } = useContext(AccountContext);
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ function AccountManagement ({ className }: Props): React.ReactElement<Props> {
           return;
         }
 
-        setSelectedAccounts && setSelectedAccounts(list[decodedUrl].authorizedAccounts);
+        setSelectedAccounts?.(list[decodedUrl].authorizedAccounts);
       })
       .catch(console.error);
   }, [setSelectedAccounts, decodedUrl]);
