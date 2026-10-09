@@ -15,9 +15,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
         node-version: 'lts/*'
 
@@ -31,7 +31,7 @@ jobs:
       run: python3 scripts/check-built-manifests.py . $(cat scripts/published-packages.txt)
 
     - name: Upload Chrome package
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: chrome-${{ github.sha }}
         path: |
@@ -40,7 +40,7 @@ jobs:
         if-no-files-found: error
 
     - name: Upload Firefox package
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: firefox-${{ github.sha }}
         path: |
