@@ -22,6 +22,11 @@ const sanitizeHtml = (input: string, options?: {
       .replace(/<[^>]*>/g, ''); // Remove other HTML tags
   }
 
+  // Tag removal is a single pass, so nested input such as `<scr<script>ipt>`
+  // leaves a new tag behind. Drop every remaining angle bracket; an origin never
+  // contains one, and validateOrigin already treats them as suspicious.
+  sanitized = sanitized.replace(/[<>]/g, '');
+
   // Normalize whitespace
   sanitized = sanitized
     .trim()
@@ -44,6 +49,11 @@ export const sanitizeOrigin = (origin: string): string => {
 
 // Validate that the origin looks legitimate
 export const validateOrigin = (origin: string): boolean => {
+  // Markup is judged on what the site sent: the sanitized form no longer has any.
+  if (/[<>]/.test(origin)) {
+    return false;
+  }
+
   const sanitized = sanitizeOrigin(origin);
 
   // Special case: always allow localhost URLs
@@ -53,7 +63,6 @@ export const validateOrigin = (origin: string): boolean => {
 
   // Check for suspicious patterns
   const suspiciousPatterns = [
-    /[<>]/, // HTML characters
     /^\s*$/, // Empty or whitespace only
     /.{50,}/, // Extremely long names
     /^(?!https?:\/\/).*:\/\//, // Any protocol other than http/https
