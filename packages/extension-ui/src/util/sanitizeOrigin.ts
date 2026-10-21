@@ -9,22 +9,22 @@ const sanitizeHtml = (input: string, options?: {
     return '';
   }
 
-  let sanitized = input;
+  // <br> becomes a line break only when asked for; everything else that looks
+  // like markup is removed below.
+  let sanitized = options?.allowLineBreaks
+    ? input.replace(/<br\s*\/?>/gi, '\n')
+    : input;
 
-  // Remove all HTML tags
-  sanitized = sanitized.replace(/<[^>]*>/g, '');
+  // One pass of tag removal turns `<scr<script>ipt>` into a new `<script`, so
+  // repeat until nothing changes, then drop any stray angle bracket: an origin
+  // never contains one, and validateOrigin treats them as suspicious.
+  let previous: string;
 
-  // Handle line breaks if specified
-  if (options?.allowLineBreaks) {
-    // Convert <br> to actual line breaks before sanitization
-    sanitized = input
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<[^>]*>/g, ''); // Remove other HTML tags
-  }
+  do {
+    previous = sanitized;
+    sanitized = sanitized.replace(/<[^>]*>/g, '');
+  } while (sanitized !== previous);
 
-  // Tag removal is a single pass, so nested input such as `<scr<script>ipt>`
-  // leaves a new tag behind. Drop every remaining angle bracket; an origin never
-  // contains one, and validateOrigin already treats them as suspicious.
   sanitized = sanitized.replace(/[<>]/g, '');
 
   // Normalize whitespace
