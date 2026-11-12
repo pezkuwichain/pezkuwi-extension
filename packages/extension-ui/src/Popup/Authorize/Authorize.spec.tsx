@@ -27,7 +27,7 @@ const oneRequest = [{ id: '1', request: { origin: '???' }, url: 'http://pezkuwic
 
 const twoRequests = [
   ...oneRequest,
-  { id: '2', request: { origin: 'abc' }, url: 'http://pezkuwichain.app' }
+  { id: '2', request: { origin: 'abc' }, url: 'https://example.com' }
 ];
 
 const oneAccount = [
@@ -77,7 +77,7 @@ describe('Authorize', () => {
 
     expect(wrapper.find(Request).length).toBe(2);
     expect(wrapper.find(Warning).length).toBe(2);
-    expect(wrapper.find(Request).at(1).find('.warning-message').text()).toBe('An application, self-identifying as abc is requesting access from http://pezkuwichain.app');
+    expect(wrapper.find(Request).at(1).find('.warning-message').text()).toBe('An application, self-identifying as abc is requesting access from https://example.com');
     expect(wrapper.find('button.acceptButton').length).toBe(1);
   });
 

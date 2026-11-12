@@ -15,7 +15,7 @@ This extension manages accounts and allows the signing of transactions with thos
 
 ## Documentation
 
-Find out more about how to use the extension as a Dapp developer in the [Pezkuwi Extension Documentation](https://js.pezkuwichain.app/docs/extension/)
+Find out more about how to use the extension as a Dapp developer in the [Pezkuwi Extension Documentation](https://developers.pezkuwichain.io)
 
 ## Development
 
@@ -69,7 +69,7 @@ const accounts = await web3Accounts();
 - Website: https://pezkuwichain.io
 - Documentation: https://docs.pezkuwichain.io
 - GitHub: https://github.com/pezkuwichain
-- API Docs: https://js.pezkuwichain.app
+- API Docs: https://developers.pezkuwichain.io
 
 ## License
 

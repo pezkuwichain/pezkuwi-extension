@@ -1,3 +1,3 @@
 # @polkadot/extension-dapp
 
-Documentation available [in the pezkuwi doc](https://js.pezkuwichain.app/docs/extension).
+Documentation available [in the pezkuwi doc](https://developers.pezkuwichain.io).

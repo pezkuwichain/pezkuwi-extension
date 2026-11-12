@@ -771,7 +771,7 @@ Contributed:
 - Add filtered account subscriptions (Thanks to https://github.com/hamidra)
 - Display signed data as Ascii (Thanks to https://github.com/hamidra)
 - Removal for authorized URLs (Thanks to https://github.com/Are10)
-- Fix typo on https://js.pezkuwichain.app/docs/ (Thanks to https://github.com/michaelhealyco)
+- Fix typo on https://polkadot.js.org/docs/ (Thanks to https://github.com/michaelhealyco)
 
 Changes:
 
@@ -908,7 +908,7 @@ Changes:
 
 Contributed:
 
-- Fix typo on https://js.pezkuwichain.app/docs/ (Thanks to https://github.com/michaelhealyco)
+- Fix typo on https://polkadot.js.org/docs/ (Thanks to https://github.com/michaelhealyco)
 
 Changes:
 
