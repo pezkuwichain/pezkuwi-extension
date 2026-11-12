@@ -119,7 +119,7 @@ describe('Signing requests', () => {
           },
           sign: jest.fn()
         },
-        url: 'https://js.pezkuwichain.app/apps/?rpc=wss%3A%2F%2Frpc.zagros.pezkuwichain.io#/accounts'
+        url: 'https://js.pezkuwichain.io/?rpc=wss%3A%2F%2Frpc.zagros.pezkuwichain.io#/accounts'
       },
       {
         account: {
@@ -156,7 +156,7 @@ describe('Signing requests', () => {
           },
           sign: jest.fn()
         },
-        url: 'https://js.pezkuwichain.app/apps'
+        url: 'https://js.pezkuwichain.io'
       }
     ];
     onActionStub = jest.fn();
@@ -245,7 +245,7 @@ describe('Signing requests', () => {
           },
           sign: jest.fn()
         },
-        url: 'https://js.pezkuwichain.app/apps/?rpc=wss%3A%2F%2Frpc.zagros.pezkuwichain.io#/accounts'
+        url: 'https://js.pezkuwichain.io/?rpc=wss%3A%2F%2Frpc.zagros.pezkuwichain.io#/accounts'
       }];
       await mountComponent();
       expect(wrapper.find(Extrinsic)).toHaveLength(0);
@@ -257,7 +257,7 @@ describe('Signing requests', () => {
     it('correctly displays request 1', () => {
       expect(wrapper.find(Address).find('.fullAddress').text()).toBe(signRequests[0].account.address);
       expect(wrapper.find(Extrinsic).find('td.data').map((el): string => el.text())).toEqual([
-        'https://js.pezkuwichain.app/apps/?rpc=wss%3A%2F%2Frpc.zagros.pezkuwichain.io#/accounts',
+        'https://js.pezkuwichain.io/?rpc=wss%3A%2F%2Frpc.zagros.pezkuwichain.io#/accounts',
         'Westend',
         '45',
         '3',
@@ -276,7 +276,7 @@ describe('Signing requests', () => {
 
       expect(wrapper.find(Address).find('.fullAddress').text()).toBe(signRequests[1].account.address);
       expect(wrapper.find(Extrinsic).find('td.data').map((el): string => el.text())).toEqual([
-        'https://js.pezkuwichain.app/apps',
+        'https://js.pezkuwichain.io',
         'Westend',
         '45',
         '3',
