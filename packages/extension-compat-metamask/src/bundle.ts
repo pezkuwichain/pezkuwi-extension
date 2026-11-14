@@ -6,9 +6,10 @@ import type { SignerPayloadRaw, SignerResult } from '@pezkuwi/types/types';
 import type { HexString } from '@pezkuwi/util/types';
 
 import detectEthereumProvider from '@metamask/detect-provider';
-import Web3 from 'web3';
 
 import { assert } from '@pezkuwi/util';
+
+import { ethSignHash } from './ethSignHash.js';
 
 export { packageInfo } from './packageInfo.js';
 
@@ -77,7 +78,7 @@ function injectMetaMaskWeb3 (win: Web3Window): void {
         },
         signer: {
           signRaw: async (raw: SignerPayloadRaw): Promise<SignerResult> => {
-            const signature = (await provider.request({ method: 'eth_sign', params: [raw.address, Web3.utils.sha3(raw.data)] })) as HexString;
+            const signature = (await provider.request({ method: 'eth_sign', params: [raw.address, ethSignHash(raw.data)] })) as HexString;
 
             return { id: 0, signature };
           }

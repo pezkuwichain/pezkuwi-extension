@@ -22,7 +22,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@paraspell/xcm-analyser": "^1.3.1",
+    "@paraspell/xcm-analyser": "^3.4.0",
     "@pezkuwi/api": "^16.5.37",
     "@pezkuwi/extension-base": "0.62.27",
     "@pezkuwi/extension-chains": "0.62.27",
