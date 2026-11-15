@@ -7,13 +7,13 @@ import type { AnyJson, SignerPayloadJSON } from '@pezkuwi/types/types';
 import type { BN } from '@pezkuwi/util';
 import type { TFunction } from '../../hooks/useTranslation.js';
 
-import { convertMultilocationToUrl } from '@paraspell/xcm-analyser';
 import React, { useMemo, useRef } from 'react';
 
 import { bnToBn, formatNumber } from '@pezkuwi/util';
 
 import { Table } from '../../components/index.js';
 import { useMetadata, useTranslation } from '../../hooks/index.js';
+import { assetIdUrl } from './assetIdUrl.js';
 
 interface Decoded {
   args: AnyJson | null;
@@ -107,14 +107,6 @@ function mortalityAsString (era: ExtrinsicEra, hexBlockNumber: string, t: TFunct
   });
 }
 
-function getHumanReadableAssetId (assetId: unknown): string | undefined {
-  try {
-    return convertMultilocationToUrl(assetId);
-  } catch (_) {
-    return undefined;
-  }
-}
-
 function Extrinsic ({ className, payload, request: { blockNumber, genesisHash, method, specVersion: hexSpec }, url }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const chain = useMetadata(genesisHash);
@@ -128,7 +120,7 @@ function Extrinsic ({ className, payload, request: { blockNumber, genesisHash, m
 
   const humanReadablePayload = payload.toHuman() as Record<string, unknown>;
   const assetId = humanReadablePayload['assetId'];
-  const humanReadableAssetId = getHumanReadableAssetId(assetId);
+  const humanReadableAssetId = assetIdUrl(assetId);
 
   return (
     <Table

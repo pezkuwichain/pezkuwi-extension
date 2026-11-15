@@ -10,6 +10,7 @@
     { "path": "./packages/extension-base/tsconfig.spec.json" },
     { "path": "./packages/extension-chains/tsconfig.build.json" },
     { "path": "./packages/extension-compat-metamask/tsconfig.build.json" },
+    { "path": "./packages/extension-compat-metamask/tsconfig.spec.json" },
     { "path": "./packages/extension-dapp/tsconfig.build.json" },
     { "path": "./packages/extension-dapp/tsconfig.spec.json" },
     { "path": "./packages/extension-inject/tsconfig.build.json" },
