@@ -18,10 +18,10 @@
     "./packageDetect.cjs"
   ],
   "type": "module",
-  "version": "0.62.27",
+  "version": "0.62.28",
   "main": "index.js",
   "dependencies": {
-    "@pezkuwi/extension-inject": "0.62.27",
+    "@pezkuwi/extension-inject": "0.62.28",
     "@pezkuwi/networks": "^14.0.26",
     "@pezkuwi/util": "^14.0.26",
     "@pezkuwi/util-crypto": "^14.0.26",

@@ -18,11 +18,11 @@
     "./packageDetect.cjs"
   ],
   "type": "module",
-  "version": "0.62.27",
+  "version": "0.62.28",
   "main": "index.js",
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
-    "@pezkuwi/extension-inject": "0.62.27",
+    "@pezkuwi/extension-inject": "0.62.28",
     "@pezkuwi/types": "^16.5.37",
     "@pezkuwi/util": "^14.0.26",
     "@pezkuwi/util-crypto": "^14.0.26",
