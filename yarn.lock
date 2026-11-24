@@ -250,7 +250,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.22.5, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.28.4":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.22.5, @babel/runtime@npm:^7.28.4":
   version: 7.28.6
   resolution: "@babel/runtime@npm:7.28.6"
   checksum: 10/fbcd439cb74d4a681958eb064c509829e3f46d8a4bfaaf441baa81bb6733d1e680bccc676c813883d7741bcaada1d0d04b15aa320ef280b5734e2192b50decf9
@@ -1909,7 +1909,7 @@ __metadata:
     enzyme: "npm:^3.11.0"
     enzyme-adapter-react-16: "npm:^1.15.7"
     file-saver: "npm:^2.0.5"
-    i18next: "npm:^23.7.11"
+    i18next: "npm:^26.3.4"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-dropzone: "npm:^11.7.1"
@@ -7655,12 +7655,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.7.11":
-  version: 23.16.8
-  resolution: "i18next@npm:23.16.8"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-  checksum: 10/d5c38011de4d3b4aa466fac6773520eb28007b9d6138e03432bfbfc0d041c04df45e15c67d96f22cd660088cc9b24d3eda32cddc9fb4c6508c5afada6c2e6290
+"i18next@npm:^26.3.4":
+  version: 26.3.4
+  resolution: "i18next@npm:26.3.4"
+  peerDependencies:
+    typescript: ^5 || ^6
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/133ba9a5f76c1d57337f0dcc1b0ab0ff987714a1863813dcc95024531074c6d92603a19b0bac9c16a6b04c734742d8d098da0c222bef5a9562bdde231ea4b221
   languageName: node
   linkType: hard
 
